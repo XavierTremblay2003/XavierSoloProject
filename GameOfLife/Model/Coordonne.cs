@@ -11,13 +11,15 @@ namespace GameOfLife.Model
     /// </summary>
     class Coordonne
     {
+        #region Attribut
         /// <summary>
         /// Nombre qui détermine le nombre de fois le plan est plus gros que 1
         /// </summary>
-        private double _coefficientConversion;
+        private double coefficientConversion;
 
+        #endregion
 
-
+        #region propriété
         /// <summary>
         /// Représente les coordonné absolu d'un objet sur n'importe quelle plan
         /// </summary>
@@ -27,6 +29,8 @@ namespace GameOfLife.Model
         /// Représente les coordonné Relative aux plan actuelle d'un objet
         /// </summary>
         public Tuple<double, double> CoordonneRelative { get { return GetCoordonneRelative(); } }
+
+        #endregion
 
         /// <summary>
         /// Construt une coordonnée avec les coordonné absolut de l'objet
@@ -40,6 +44,7 @@ namespace GameOfLife.Model
             CoordonneAbsolue = new(coordonneX, coordonneY);
         }
 
+        #region Méthodes
 
         /// <summary>
         /// Calculle a partir des Coordonnées absolu d'un objet ses Coordonnées relative
@@ -49,5 +54,7 @@ namespace GameOfLife.Model
         {
             return new Tuple<double, double>(CoordonneAbsolue.Item1 * _coefficientConversion, CoordonneAbsolue.Item2 * _coefficientConversion);
         }
+
+        #endregion
     }
 }
