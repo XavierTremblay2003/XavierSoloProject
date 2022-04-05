@@ -8,5 +8,6 @@ namespace GameOfLife.Model
 {
     class Cellule
     {
+        public Coordonne CoordonneCellule { get; private set; }
     }
 }
