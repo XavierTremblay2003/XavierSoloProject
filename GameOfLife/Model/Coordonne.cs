@@ -40,7 +40,7 @@ namespace GameOfLife.Model
         /// <param name="coordonneY">Coordonnée Y en coordonnée absolut </param>
         public Coordonne(double coefficientConversion, int coordonneX,int coordonneY)
         {
-            _coefficientConversion = coefficientConversion;
+            this.coefficientConversion = coefficientConversion;
             CoordonneAbsolue = new(coordonneX, coordonneY);
         }
 
@@ -52,7 +52,7 @@ namespace GameOfLife.Model
         /// <returns>Les coordonnées relative d'un objet</returns>
         public Tuple<double, double> GetCoordonneRelative()
         {
-            return new Tuple<double, double>(CoordonneAbsolue.Item1 * _coefficientConversion, CoordonneAbsolue.Item2 * _coefficientConversion);
+            return new Tuple<double, double>(CoordonneAbsolue.Item1 * coefficientConversion, CoordonneAbsolue.Item2 * coefficientConversion);
         }
 
         #endregion
