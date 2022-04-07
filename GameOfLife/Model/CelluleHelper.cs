@@ -58,19 +58,19 @@ namespace GameOfLife.Model
         {
             foreach (Cellule cellule in Cellules)
             {
-                int nbVosineVivante = GetNombreCelluleVivante(GetAllVoisine(cellule));
+                int nbVoisineVivante = GetNombreCelluleVivante(GetAllVoisine(cellule));
 
-                if (cellule.IsVivante && nbVosineVivante < 2)
+                if (cellule.IsVivante && nbVoisineVivante < 2)
                 {
                     cellule.IsVivante = false;
                 }
 
-                if(cellule.IsVivante && nbVosineVivante > 3)
+                if(cellule.IsVivante && nbVoisineVivante > 3)
                 {
                     cellule.IsVivante = false;
                 }
 
-                if(!cellule.IsVivante && nbVosineVivante == 3)
+                if(!cellule.IsVivante && nbVoisineVivante == 3)
                 {
                     cellule.IsVivante = true;
                 }
@@ -79,7 +79,7 @@ namespace GameOfLife.Model
         /// <summary>
         /// Calcule le nombre de cellules vivante dans le tableaux
         /// </summary>
-        /// <param name="lesCellules">Tableaux de cellule à vérifier le nombre de vivante </param>
+        /// <param name="lesCellules">Tableaux de cellules dont on veut savoir le nombre de cellues vivante</param>
         /// <returns>Le nombre de cellule vivante dans le tableaux</returns>
         private int GetNombreCelluleVivante(Cellule[] lesCellules)
         {
