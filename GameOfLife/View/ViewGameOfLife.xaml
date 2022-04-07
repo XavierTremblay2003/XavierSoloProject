@@ -3,10 +3,114 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.com/icons/svg"
         xmlns:local="clr-namespace:GameOfLife.View"
         mc:Ignorable="d"
-        Title="ViewGameOfLife" Height="450" Width="800">
-    <Grid>
+        Title="Jeu de la vie" Height="450" Width="800">
+    <Window.Resources>
         
+    </Window.Resources>
+    <Grid Margin="20,10,20,10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Caneva evec les cellule intégrer -->
+
+        <Grid HorizontalAlignment="Left" Width="350" Height="350">
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Canvas Width="350" Height="350">
+
+                </Canvas>
+            </Border>
+        </Grid>
+        
+        <!-- Bonton de configuration -->
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <GroupBox Padding="2,10,0,2" Header="Configuration">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0">Générer une forme :</Label>
+                    <Button Grid.Row="1" Margin="0,0,0,5">Forme 1</Button>
+                    <Button Grid.Row="2" Margin="0,0,0,5">Forme 2</Button>
+                    <Button Grid.Row="3" Margin="0,0,0,5">Forme 3</Button>
+                    <Button Grid.Row="4">Aléatoire
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Label Grid.Row="5">Charger une nouvelle forme :</Label>
+                    <!-- Bouton pour le chargement -->
+                    <Button Grid.Row="6">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="Solid_FileArrowUp" Height="10"></fa:ImageAwesome>
+                                <TextBlock Margin="3,0,0,0">Charger</TextBlock>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Label Grid.Row="7">Enregistrer une nouvelle forme :</Label>
+                    <!-- Bouton pour l'enregistrement -->
+                    <Button Grid.Row="8" Margin="0,0,0,5">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="Solid_FloppyDisk" Height="10"></fa:ImageAwesome>
+                                <TextBlock Margin="3,0,0,0">Enregistrer</TextBlock>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+            </GroupBox>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label>Nombre d'itérations : </Label>
+                <TextBox Grid.Column="1" Width="150"></TextBox>
+            </Grid>
+            <Button Background="Green" Height="22" Foreground="White" Content="Démarer" Grid.Row="2">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="3"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+           
+        </Grid>
+
+
     </Grid>
 </Window>
