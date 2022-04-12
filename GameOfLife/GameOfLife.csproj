@@ -6,23 +6,13 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
   <ItemGroup>
     <PackageReference Include="FontAwesome6.Svg" Version="1.1.0" />
   </ItemGroup>
-
-<<<<<<< Updated upstream
-=======
   <ItemGroup>
     <Reference Include="CommandRelais">
       <HintPath>bin\Debug\net5.0-windows\CommandRelais.dll</HintPath>
     </Reference>
   </ItemGroup>
 
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 </Project>
