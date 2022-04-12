@@ -86,7 +86,7 @@ namespace GameOfLife.ViewModel
         /// <summary>
         /// Représante la largeur du canevas de jeux
         /// </summary>
-        public int CanvaWidh { get { return CanvaWidh; } set { CanvaWidh = value; ValeurChanger(); } }
+        public int CanvaWidh { get { return canvaWidh; } set { canvaWidh = value; ValeurChanger(); } }
         /// <summary>
         /// Représente la heuteur du canevas de jeux
         /// </summary>
@@ -116,19 +116,27 @@ namespace GameOfLife.ViewModel
             if (nbCelluleX*20 < MIN_WIDH_WINDOW-40)
             {
                 cooeficiantMultiplicateurX = ((double)(MIN_WIDH_WINDOW - 40)) / nbCelluleX;
+                canvaWidh = (int)cooeficiantMultiplicateurX * nbCelluleX;
+                windowsWidh = canvaWidh + 40;
             }
             else
             {
                 cooeficiantMultiplicateurX = 20.0;
+                canvaWidh = MIN_WIDH_WINDOW - 40;
+                windowsWidh = MIN_WIDH_WINDOW;
             }
             //Pour la hauteur
-            if (nbCelluleY * 20 < MIN_HEIGHT_WINDOW - 40)
+            if (nbCelluleY * 20 < MIN_HEIGHT_WINDOW - 300)
             {
-                cooeficiantMultiplicateurY = ((double)(MIN_HEIGHT_WINDOW - 40)) / nbCelluleY;
+                cooeficiantMultiplicateurY = ((double)(MIN_HEIGHT_WINDOW - 300)) / nbCelluleY;
+                canvaHeight = (int)cooeficiantMultiplicateurY * nbCelluleY;
+                windowsHeight = canvaHeight + 300;
             }
             else
             {
                 cooeficiantMultiplicateurY = 20.0;
+                canvaHeight = MIN_HEIGHT_WINDOW - 300;
+                windowsHeight = MIN_HEIGHT_WINDOW;
             }
 
             //Création de la grille

@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.com/icons/svg"
         xmlns:local="clr-namespace:GameOfLife.View"
+        xmlns:vuemodele="clr-namespace:GameOfLife.ViewModel" d:DataContext="{d:DesignInstance Type=vuemodele:ViewModelGameOfLife}"
         mc:Ignorable="d"
-        Title="Jeu de la vie" Height="450" Width="800">
+        Title="Jeu de la vie" Height="{Binding WindowsHeight}" Width="{Binding WindowsWidh}">
     <Window.Resources>
         <!-- Mise en place du style pour avoir tout les bouton avec un cornerRadius -->
         <Style TargetType="Button">
@@ -26,7 +27,7 @@
 
         <!-- Caneva avec les cellules à l'interrieure -->
 
-        <Grid Width="300" Height="300">
+        <Grid Width="{Binding CanvaWidh}" Height="{Binding CanvaHeight}">
             <Canvas>
                 <!-- Data template pour mettre les rectangle correctement -->
                 <ItemsControl>
