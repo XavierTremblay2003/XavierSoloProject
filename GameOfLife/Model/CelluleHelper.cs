@@ -46,7 +46,7 @@ namespace GameOfLife.Model
                     lesCellules.Add(cellule);
                 }
             }
-            return Cellules;
+            return lesCellules;
         }
 
         #region Aplique les règle du jeux de la vie

@@ -27,22 +27,26 @@
 
         <!-- Caneva avec les cellules à l'interrieure -->
 
-        <Grid Width="{Binding CanvaWidh}" Height="{Binding CanvaHeight}">
-            <Canvas>
-                <!-- Data template pour mettre les rectangle correctement -->
-                <ItemsControl ItemsSource="{Binding ListeCellues}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Canvas Background="Transparent"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Rectangle Width="{Binding CoordonneCellule.CoefficientConversion}" Height="{Binding CoordonneCellule.CoefficientConversion}"></Rectangle>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </Canvas>
+        <Grid Margin="20,20,20,20" Width="{Binding CanvaTail}" Height="{Binding CanvaTail}">
+            <!-- Data template pour mettre les rectangle correctement -->
+            <ItemsControl ItemsSource="{Binding ListeCellues}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Background="Transparent"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="Canvas.Bottom" Value="{Binding CoordonneCellule.CoordonneRelative.Item2}"/>
+                        <Setter Property="Canvas.Right" Value="{Binding CoordonneCellule.CoordonneRelative.Item1}"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Rectangle Width="{Binding CoordonneCellule.CoefficientConversion}" Height="{Binding CoordonneCellule.CoefficientConversion}" Stroke="Gray"></Rectangle>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
 
         <!-- Gestion de la partie -->

@@ -68,7 +68,7 @@ namespace GameOfLife.ViewModel
         /// <summary>
         /// Représante la tail du canevas de jeux
         /// </summary>
-        public int CanvaTail { get { return CanvaTail; } set { CanvaTail = value; ValeurChanger(); } }
+        public int CanvaTail { get { return canvaTail; } set { canvaTail = value; ValeurChanger(); } }
         /// <summary>
         /// Retourne la liste de cellule du cellule Helper
         /// </summary>

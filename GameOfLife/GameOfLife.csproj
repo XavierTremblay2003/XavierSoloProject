@@ -12,6 +12,7 @@
   <ItemGroup>
     <Reference Include="CommandRelais">
       <HintPath>bin\Debug\net5.0-windows\CommandRelais.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
 
