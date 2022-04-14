@@ -47,7 +47,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <!-- Création du rectangle représantant une cellule -->
-                        <Rectangle Width="{Binding CoordonneCellule.CoefficientConversion}" Height="{Binding CoordonneCellule.CoefficientConversion}" Fill="Transparent" Stroke="Gray">
+                        <Rectangle Width="{Binding CoordonneCellule.CoefficientConversion}" Height="{Binding CoordonneCellule.CoefficientConversion}" Fill="{Binding CouleurCellule}" Stroke="Gray">
                             <behaviours:Interaction.Triggers>
                                 <behaviours:EventTrigger EventName="MouseDown">
                                     <behaviours:InvokeCommandAction Command="{Binding CelluleClickEvent}" PassEventArgsToCommand="True"/>
