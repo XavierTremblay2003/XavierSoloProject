@@ -11,6 +11,9 @@ using System.Windows.Media;
 
 namespace GameOfLife.ViewModel
 {
+    /// <summary>
+    /// Représante le VieewModel pour relier la vue du jeux de la vie aux models
+    /// </summary>
     class ViewModelGameOfLife : INotifyPropertyChanged
     {
         #region Proprieter d'événement
@@ -30,8 +33,13 @@ namespace GameOfLife.ViewModel
         #endregion
 
         #region Constante
-
+        /// <summary>
+        /// Taille minimum qu'une cellule peut avoir dasn l'afichage
+        /// </summary>
         const int MIN_TAIL_CELLULE = 20;
+        /// <summary>
+        /// Taille minimal du canevas pour l'affichage du jeux
+        /// </summary>
         const int MIN_TAIL_CANVAS = 350;
         #endregion
 
@@ -81,13 +89,22 @@ namespace GameOfLife.ViewModel
 
 
         #endregion
+        /// <summary>
+        /// Constructeur du view Model
+        /// </summary>
+        /// <param name="nbCelluleX">Nombre de cellule en x que vous voulezx pour le heux de la vie</param>
+        /// <param name="nbCelluleY">Nombre de cellule en y que vous voulezx pour le heux de la vie</param>
         public ViewModelGameOfLife(int nbCelluleX,int nbCelluleY)
         {
             InisializeJeu(nbCelluleX, nbCelluleY);
         }
 
         #region Methode de démarage
-
+        /// <summary>
+        /// Permet de générer une grille de jeux de la vie et de mettre les cellule a la bonne tail
+        /// </summary>
+        /// <param name="nbCelluleX">nombre de cellules dans la coordonnée x</param>
+        /// <param name="nbCelluleY">nombre de cellule dasn la coordonné y</param>
         private void InisializeJeu(int nbCelluleX,int nbCelluleY)
         {
             int nbCelluleMax = Math.Max(nbCelluleX, nbCelluleY);
