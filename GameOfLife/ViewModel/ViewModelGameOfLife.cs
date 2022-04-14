@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -58,6 +59,14 @@ namespace GameOfLife.ViewModel
         /// Représante la tail en Y du canevas de jeux
         /// </summary>
         private int canvaTailY;
+        /// <summary>
+        /// Réprésante si la partie est l'ancer ou non
+        /// </summary>
+        private bool isGameStart;
+        /// <summary>
+        /// Représente le nombre d'ithération du jeux
+        /// </summary>
+        private int nbIterration;
 
 
         #endregion
@@ -75,11 +84,47 @@ namespace GameOfLife.ViewModel
         /// Retourne la liste de cellule du cellule Helper
         /// </summary>
         public ObservableCollection<Cellule> ListeCellues { get { return celluleHelper.Cellules; } }
+        /// <summary>
+        /// Réprésante si la partie est l'ancer ou non
+        /// </summary>
+        public bool IsGameStart { get { return isGameStart; } set { isGameStart = value; ValeurChanger(); } }
+        /// <summary>
+        /// Représente le nombre d'ithération du jeux
+        /// </summary>
+        public string NbIterration { get { return nbIterration.ToString(); } set { int.TryParse(value, out nbIterration); ValeurChanger(); } }
         #endregion
 
         #region CommandRelais
-
-
+        /// <summary>
+        /// Fonction lancer quand on veut lancer le jeux fait changer les cellule d'état
+        /// </summary>
+        public ICommand StartGame { get; set; }
+        /// <summary>
+        /// Fonction executer lor du démarage de la partie
+        /// </summary>
+        /// <param name="parameter">paramète de la fonction non utiliser</param>
+        private void StartGameExecute(object parameter)
+        {
+            Task.Run(async () =>
+            {
+                for (int i = nbIterration; i > 0; i--)
+                {
+                    celluleHelper.ApplyRule();
+                    nbIterration--;
+                    await Task.Delay(100);
+                    ValeurChanger("NbIterration");
+                }
+            });
+        }
+        /// <summary>
+        /// Fonction pour vérifier si la partie peut ètre jouer
+        /// </summary>
+        /// <param name="parameter">paramète de la fonction non utiliser</param>
+        /// <returns>True si la partie peut être lancé sinon False</returns>
+        private bool StartGameCanExecute(object parameter)
+        {
+            return NbIterration != default(int).ToString();
+        }
 
 
 
@@ -92,6 +137,7 @@ namespace GameOfLife.ViewModel
         public ViewModelGameOfLife(int nbCelluleX,int nbCelluleY)
         {
             //Initiallisation des ICommand
+            StartGame = new CommandeRelais(StartGameExecute, StartGameCanExecute);
 
 
             InisializeJeu(nbCelluleX, nbCelluleY);

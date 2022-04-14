@@ -126,6 +126,11 @@ namespace GameOfLife.Model
             int coordoneXVoisine = celluleVoisine.CoordonneCellule.CoordonneAbsolue.Item1;
             int coordoneYVoisine = celluleVoisine.CoordonneCellule.CoordonneAbsolue.Item2;
 
+            // Ne pas mettre voisine si ces la mème cellule
+            if(cellule == celluleVoisine)
+            {
+                return false;
+            }
             // Vérification si les cellule sont dans le bon rang avec leur coordonnée X et Y
             return InRange(coordoneXVoisine, coordoneXCellule - 1, coordoneXCellule + 1) && InRange(coordoneYVoisine, coordoneYCellule - 1, coordoneYCellule + 1);
         }

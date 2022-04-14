@@ -40,8 +40,8 @@
                 <ItemsControl.ItemContainerStyle>
                     <Style>
                         <!-- Binding de la position des cellule sur le canvas -->
-                        <Setter Property="Canvas.Bottom" Value="{Binding CoordonneCellule.CoordonneRelative.Item2}"/>
-                        <Setter Property="Canvas.Right" Value="{Binding CoordonneCellule.CoordonneRelative.Item1}"/>
+                        <Setter Property="Canvas.Top" Value="{Binding CoordonneCellule.CoordonneRelative.Item2}"/>
+                        <Setter Property="Canvas.Left" Value="{Binding CoordonneCellule.CoordonneRelative.Item1}"/>
                     </Style>
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
@@ -120,9 +120,9 @@
                 </Grid.ColumnDefinitions>
 
                 <Label>Nombre d'itérations : </Label>
-                <TextBox Grid.Column="1" Width="150"></TextBox>
+                <TextBox Text="{Binding NbIterration}" Grid.Column="1" Width="150"></TextBox>
             </Grid>
-            <Button Background="Green" Height="22" Foreground="White" Content="Démarer" Grid.Row="2">
+            <Button Command="{Binding StartGame}" Background="Green" Height="22" Foreground="White" Content="Démarer" Grid.Row="2">
             </Button>
            
         </Grid>
