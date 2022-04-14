@@ -22,9 +22,9 @@ namespace GameOfLife.Model
         /// <param name="coefficientConversion">Le coefficient de conversion de la grille de cellule</param>
         /// <param name="tailGrilleX">Taille de la grille en X</param>
         /// <param name="tailGrilleY">Taille de la grille en Y</param>
-        public CelluleHelper(double coefficientConversionX,double coefficientConversionY, int tailGrilleX,int tailGrilleY)
+        public CelluleHelper(double coefficientConversion, int tailGrilleX,int tailGrilleY)
         {
-            Cellules = InisialiseGrille(coefficientConversionX,coefficientConversionY, tailGrilleX, tailGrilleY);
+            Cellules = InisialiseGrille(coefficientConversion, tailGrilleX, tailGrilleY);
         }
         /// <summary>
         /// Initialiser une observableCollection de cellule a partir d'un coefficient de Conversion et la taille d'une grille en X et Y
@@ -33,7 +33,7 @@ namespace GameOfLife.Model
         /// <param name="tailGrilleX">Taille de la grille en X</param>
         /// <param name="tailGrilleY">Taille de la grille en Y</param>
         /// <returns>Une ObservableCollection de cellule avec les coordoner dans la grille</returns>
-        private ObservableCollection<Cellule> InisialiseGrille(double coefficientConversionX,double coefficientConversionY, int tailGrilleX,int tailGrilleY)
+        private ObservableCollection<Cellule> InisialiseGrille(double coefficientConversion, int tailGrilleX,int tailGrilleY)
         {
             ObservableCollection<Cellule> lesCellules = new();
 
@@ -41,7 +41,7 @@ namespace GameOfLife.Model
             {
                 for (int j = 0; j <= tailGrilleY; j++)
                 {
-                    Coordonne coordonneCellule = new(coefficientConversionX,coefficientConversionY, i, j);
+                    Coordonne coordonneCellule = new(coefficientConversion, i, j);
                     Cellule cellule = new(coordonneCellule);
                     lesCellules.Add(cellule);
                 }
