@@ -1,6 +1,7 @@
 ﻿using GameOfLife.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -29,8 +30,9 @@ namespace GameOfLife.ViewModel
         #endregion
 
         #region Constante
-        const int MIN_WIDH_WINDOW = 800;
-        const int MIN_HEIGHT_WINDOW = 455;
+
+        const int MIN_TAIL_CELLULE = 20;
+        const int MIN_TAIL_CANVAS = 350;
         #endregion
 
         #region Atribut
@@ -47,21 +49,9 @@ namespace GameOfLife.ViewModel
         /// </summary>
         private CelluleHelper celluleHelper;
         /// <summary>
-        /// Représante la largeur de la fenètre
+        /// Représante la tail du canevas de jeux
         /// </summary>
-        private int windowsWidh;
-        /// <summary>
-        /// Représente la heuteur de la fenètre
-        /// </summary>
-        private int windowsHeight;
-        /// <summary>
-        /// Représante la largeur du canevas de jeux
-        /// </summary>
-        private int canvaWidh;
-        /// <summary>
-        /// Représente la heuteur du canevas de jeux
-        /// </summary>
-        private int canvaHeight;
+        private int canvaTail;
 
 
         #endregion
@@ -76,22 +66,13 @@ namespace GameOfLife.ViewModel
         /// </summary>
         public Color BorderColor { get { return borderColor; } set { borderColor = value; ValeurChanger(); } }
         /// <summary>
-        /// Représante la largeur de la fenètre
+        /// Représante la tail du canevas de jeux
         /// </summary>
-        public int WindowsWidh { get { return windowsWidh; }set { windowsWidh = value;ValeurChanger(); } }
+        public int CanvaTail { get { return CanvaTail; } set { CanvaTail = value; ValeurChanger(); } }
         /// <summary>
-        /// Représente la heuteur de la fenètre
+        /// Retourne la liste de cellule du cellule Helper
         /// </summary>
-        public int WindowsHeight { get { return windowsHeight; } set { windowsHeight = value; ValeurChanger(); } }
-        /// <summary>
-        /// Représante la largeur du canevas de jeux
-        /// </summary>
-        public int CanvaWidh { get { return canvaWidh; } set { canvaWidh = value; ValeurChanger(); } }
-        /// <summary>
-        /// Représente la heuteur du canevas de jeux
-        /// </summary>
-        public int CanvaHeight { get { return canvaHeight; } set { canvaHeight = value; ValeurChanger(); } }
-
+        public ObservableCollection<Cellule> ListeCellues { get { return celluleHelper.Cellules; } }
         #endregion
 
         #region CommandRelais
@@ -109,38 +90,24 @@ namespace GameOfLife.ViewModel
 
         private void InisializeJeu(int nbCelluleX,int nbCelluleY)
         {
-            double cooeficiantMultiplicateurX;
-            double cooeficiantMultiplicateurY;
+            int nbCelluleMax = Math.Max(nbCelluleX, nbCelluleY);
+
+            double cooeficiantMultiplicateur = 0;
+
             // Vérification si les cellule ont la taille minimum pour entrer dans l'écran;
-            //Pour la largeur
-            if (nbCelluleX*20 < MIN_WIDH_WINDOW-40)
+            if (nbCelluleMax*MIN_TAIL_CELLULE < MIN_TAIL_CANVAS)
             {
-                cooeficiantMultiplicateurX = ((double)(MIN_WIDH_WINDOW - 40)) / nbCelluleX;
-                canvaWidh = (int)cooeficiantMultiplicateurX * nbCelluleX;
-                windowsWidh = canvaWidh + 40;
+                cooeficiantMultiplicateur = (((double)MIN_TAIL_CANVAS) / nbCelluleMax);
+                canvaTail = MIN_TAIL_CANVAS;
             }
             else
             {
-                cooeficiantMultiplicateurX = 20.0;
-                canvaWidh = MIN_WIDH_WINDOW - 40;
-                windowsWidh = MIN_WIDH_WINDOW;
-            }
-            //Pour la hauteur
-            if (nbCelluleY * 20 < MIN_HEIGHT_WINDOW - 300)
-            {
-                cooeficiantMultiplicateurY = ((double)(MIN_HEIGHT_WINDOW - 300)) / nbCelluleY;
-                canvaHeight = (int)cooeficiantMultiplicateurY * nbCelluleY;
-                windowsHeight = canvaHeight + 300;
-            }
-            else
-            {
-                cooeficiantMultiplicateurY = 20.0;
-                canvaHeight = MIN_HEIGHT_WINDOW - 300;
-                windowsHeight = MIN_HEIGHT_WINDOW;
+                cooeficiantMultiplicateur = MIN_TAIL_CELLULE;
+                CanvaTail = nbCelluleMax * MIN_TAIL_CELLULE;
             }
 
             //Création de la grille
-            celluleHelper = new(cooeficiantMultiplicateurX, cooeficiantMultiplicateurY, nbCelluleX, nbCelluleY);
+            celluleHelper = new(cooeficiantMultiplicateur, nbCelluleX, nbCelluleY);
         }
 
         #endregion

@@ -11,19 +11,12 @@ namespace GameOfLife.Model
     /// </summary>
     class Coordonne
     {
-        #region Attribut
-        /// <summary>
-        /// Nombre qui détermine le nombre de fois le plan sur l'axe des x est plus gros que 1
-        /// </summary>
-        private double coefficientConversionX;
-        /// <summary>
-        /// Nombre qui détermine le nombre de fois le plan sur l'axe des y est plus gros que 1
-        /// </summary>
-        private double coefficientConversionY;
-
-        #endregion
-
         #region propriété
+        /// <summary>
+        /// Nombre qui détermine le nombre de fois le plan est plus gros que 1
+        /// </summary>
+        public double CoefficientConversion { get; }
+
         /// <summary>
         /// Représente les coordonné absolu d'un objet sur n'importe quelle plan
         /// </summary>
@@ -42,10 +35,9 @@ namespace GameOfLife.Model
         /// <param name="coefficientConversion">Nombre qui détermine le nombre de fois le plan est plus gros que 1</param>
         /// <param name="coordonneX">Coordonée X en coordonnée absolut</param>
         /// <param name="coordonneY">Coordonnée Y en coordonnée absolut </param>
-        public Coordonne(double coefficientConversionX,double coefficientConversionY, int coordonneX,int coordonneY)
+        public Coordonne(double coefficientConversion, int coordonneX,int coordonneY)
         {
-            this.coefficientConversionX = coefficientConversionX;
-            this.coefficientConversionY = coefficientConversionY;
+            CoefficientConversion = coefficientConversion;
             CoordonneAbsolue = new(coordonneX, coordonneY);
         }
 
@@ -57,7 +49,7 @@ namespace GameOfLife.Model
         /// <returns>Les coordonnées relative d'un objet</returns>
         public Tuple<double, double> GetCoordonneRelative()
         {
-            return new Tuple<double, double>(CoordonneAbsolue.Item1 * coefficientConversionX, CoordonneAbsolue.Item2 * coefficientConversionY);
+            return new Tuple<double, double>(CoordonneAbsolue.Item1 * CoefficientConversion, CoordonneAbsolue.Item2 * CoefficientConversion);
         }
 
         #endregion

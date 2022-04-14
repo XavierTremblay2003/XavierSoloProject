@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:GameOfLife.View"
         xmlns:vuemodele="clr-namespace:GameOfLife.ViewModel" d:DataContext="{d:DesignInstance Type=vuemodele:ViewModelGameOfLife}"
         mc:Ignorable="d"
-        Title="Jeu de la vie" Height="{Binding WindowsHeight}" Width="{Binding WindowsWidh}">
+        Title="Jeu de la vie" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Window.Resources>
         <!-- Mise en place du style pour avoir tout les bouton avec un cornerRadius -->
         <Style TargetType="Button">
@@ -30,10 +30,15 @@
         <Grid Width="{Binding CanvaWidh}" Height="{Binding CanvaHeight}">
             <Canvas>
                 <!-- Data template pour mettre les rectangle correctement -->
-                <ItemsControl>
+                <ItemsControl ItemsSource="{Binding ListeCellues}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas Background="Transparent"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Rectangle></Rectangle>
+                            <Rectangle Width="{Binding CoordonneCellule.CoefficientConversion}" Height="{Binding CoordonneCellule.CoefficientConversion}"></Rectangle>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
