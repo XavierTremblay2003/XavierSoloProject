@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameOfLife.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,8 @@ namespace GameOfLife.View
     {
         public ViewGameOfLife()
         {
+            ViewModelGameOfLife vmGame = new(10, 10);
+            this.DataContext = vmGame;
             InitializeComponent();
         }
     }

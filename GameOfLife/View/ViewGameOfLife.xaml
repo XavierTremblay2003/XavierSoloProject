@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.com/icons/svg"
         xmlns:local="clr-namespace:GameOfLife.View"
+        xmlns:vuemodele="clr-namespace:GameOfLife.ViewModel" d:DataContext="{d:DesignInstance Type=vuemodele:ViewModelGameOfLife}"
         mc:Ignorable="d"
-        Title="Jeu de la vie" Height="450" Width="800">
+        Title="Jeu de la vie" SizeToContent="WidthAndHeight" ResizeMode="NoResize" >
     <Window.Resources>
         <!-- Mise en place du style pour avoir tout les bouton avec un cornerRadius -->
         <Style TargetType="Button">
@@ -18,25 +19,37 @@
             <Setter Property="Margin" Value="0,0,0,15"/>
         </Style>
     </Window.Resources>
-    <Grid Margin="20,10,20,10">
+    <Grid VerticalAlignment="Top" Margin="20,10,20,10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
         <!-- Caneva avec les cellules à l'interrieure -->
 
-        <Grid Width="300" Height="300">
-            <Canvas>
-                <!-- Data template pour mettre les rectangle correctement -->
-                <ItemsControl>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Rectangle></Rectangle>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </Canvas>
+        <Grid Grid.Column="0" Margin="20,20,20,20" Width="{Binding CanvaTailX}" Height="{Binding CanvaTailY}">
+            <!-- Data template pour Afficher la grille de cellule -->
+            <ItemsControl ItemsSource="{Binding ListeCellues}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <!-- Canevas pour afficher les cellule dessus -->
+                        <Canvas Background="Transparent"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <!-- Binding de la position des cellule sur le canvas -->
+                        <Setter Property="Canvas.Bottom" Value="{Binding CoordonneCellule.CoordonneRelative.Item2}"/>
+                        <Setter Property="Canvas.Right" Value="{Binding CoordonneCellule.CoordonneRelative.Item1}"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <!-- Création du rectangle représantant une cellule -->
+                        <Rectangle Width="{Binding CoordonneCellule.CoefficientConversion}" Height="{Binding CoordonneCellule.CoefficientConversion}" Stroke="Gray"></Rectangle>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
 
         <!-- Gestion de la partie -->

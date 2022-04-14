@@ -9,5 +9,11 @@
   <ItemGroup>
     <PackageReference Include="FontAwesome6.Svg" Version="1.1.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="CommandRelais">
+      <HintPath>bin\Debug\net5.0-windows\CommandRelais.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
 
 </Project>
