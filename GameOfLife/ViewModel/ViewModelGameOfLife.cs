@@ -1,4 +1,5 @@
-﻿using GameOfLife.Model;
+﻿using CommandRelais;
+using GameOfLife.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace GameOfLife.ViewModel
@@ -96,6 +98,7 @@ namespace GameOfLife.ViewModel
 
 
 
+
         #endregion
         /// <summary>
         /// Constructeur du view Model
@@ -104,6 +107,9 @@ namespace GameOfLife.ViewModel
         /// <param name="nbCelluleY">Nombre de cellule en y que vous voulezx pour le heux de la vie</param>
         public ViewModelGameOfLife(int nbCelluleX,int nbCelluleY)
         {
+            //Initiallisation des ICommand
+
+
             InisializeJeu(nbCelluleX, nbCelluleY);
         }
 
