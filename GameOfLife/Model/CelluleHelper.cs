@@ -37,9 +37,9 @@ namespace GameOfLife.Model
         {
             ObservableCollection<Cellule> lesCellules = new();
 
-            for(int i=0;i <= tailGrilleX;i++)
+            for(int i=0;i < tailGrilleX;i++)
             {
-                for (int j = 0; j <= tailGrilleY; j++)
+                for (int j = 0; j < tailGrilleY; j++)
                 {
                     Coordonne coordonneCellule = new(coefficientConversion, i, j);
                     Cellule cellule = new(coordonneCellule);

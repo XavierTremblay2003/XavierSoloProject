@@ -49,9 +49,13 @@ namespace GameOfLife.ViewModel
         /// </summary>
         private CelluleHelper celluleHelper;
         /// <summary>
-        /// Représante la tail du canevas de jeux
+        /// Représante la tail en X du canevas de jeux
         /// </summary>
-        private int canvaTail;
+        private int canvaTailX;
+        /// <summary>
+        /// Représante la tail en Y du canevas de jeux
+        /// </summary>
+        private int canvaTailY;
 
 
         #endregion
@@ -66,9 +70,13 @@ namespace GameOfLife.ViewModel
         /// </summary>
         public Color BorderColor { get { return borderColor; } set { borderColor = value; ValeurChanger(); } }
         /// <summary>
-        /// Représante la tail du canevas de jeux
+        /// Représante la tail en x du canevas en jeux
         /// </summary>
-        public int CanvaTail { get { return canvaTail; } set { canvaTail = value; ValeurChanger(); } }
+        public int CanvaTailX { get { return canvaTailX; } set { canvaTailX = value; ValeurChanger(); } }
+        /// <summary>
+        /// Représante la tail en x du canevas en jeux
+        /// </summary>
+        public int CanvaTailY { get { return canvaTailY; } set { canvaTailY = value; ValeurChanger(); } }
         /// <summary>
         /// Retourne la liste de cellule du cellule Helper
         /// </summary>
@@ -98,12 +106,14 @@ namespace GameOfLife.ViewModel
             if (nbCelluleMax*MIN_TAIL_CELLULE < MIN_TAIL_CANVAS)
             {
                 cooeficiantMultiplicateur = (((double)MIN_TAIL_CANVAS) / nbCelluleMax);
-                canvaTail = MIN_TAIL_CANVAS;
+                canvaTailX = MIN_TAIL_CANVAS;
+                canvaTailY = MIN_TAIL_CANVAS;
             }
             else
             {
                 cooeficiantMultiplicateur = MIN_TAIL_CELLULE;
-                CanvaTail = nbCelluleMax * MIN_TAIL_CELLULE;
+                CanvaTailX = nbCelluleX * MIN_TAIL_CELLULE;
+                CanvaTailY = nbCelluleY * MIN_TAIL_CELLULE;
             }
 
             //Création de la grille
