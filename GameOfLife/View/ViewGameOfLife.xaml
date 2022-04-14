@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.com/icons/svg"
+        xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:GameOfLife.View"
+        xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
         xmlns:vuemodele="clr-namespace:GameOfLife.ViewModel" d:DataContext="{d:DesignInstance Type=vuemodele:ViewModelGameOfLife}"
         mc:Ignorable="d"
         Title="Jeu de la vie" SizeToContent="WidthAndHeight" ResizeMode="NoResize" >
@@ -26,7 +28,6 @@
         </Grid.ColumnDefinitions>
 
         <!-- Caneva avec les cellules à l'interrieure -->
-
         <Grid Grid.Column="0" Margin="20,20,20,20" Width="{Binding CanvaTailX}" Height="{Binding CanvaTailY}">
             <!-- Data template pour Afficher la grille de cellule -->
             <ItemsControl ItemsSource="{Binding ListeCellues}">
@@ -46,7 +47,13 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <!-- Création du rectangle représantant une cellule -->
-                        <Rectangle Width="{Binding CoordonneCellule.CoefficientConversion}" Height="{Binding CoordonneCellule.CoefficientConversion}" Stroke="Gray"></Rectangle>
+                        <Rectangle Width="{Binding CoordonneCellule.CoefficientConversion}" Height="{Binding CoordonneCellule.CoefficientConversion}" Fill="Transparent" Stroke="Gray">
+                            <behaviours:Interaction.Triggers>
+                                <behaviours:EventTrigger EventName="MouseDown">
+                                    <behaviours:InvokeCommandAction Command="{Binding CelluleClickEvent}" PassEventArgsToCommand="True"/>
+                                </behaviours:EventTrigger>
+                            </behaviours:Interaction.Triggers>
+                        </Rectangle>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
