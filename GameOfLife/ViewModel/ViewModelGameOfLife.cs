@@ -47,14 +47,6 @@ namespace GameOfLife.ViewModel
 
         #region Atribut
         /// <summary>
-        /// Reprécende la couleur qui remplis les cellules vivante sur la grille
-        /// </summary>
-        private Color celluleColor;
-        /// <summary>
-        /// Représente la couleur de la bordure entre les cellule
-        /// </summary>
-        private Color borderColor;
-        /// <summary>
         /// Représente un celluleHelper qui contien toute les cellule dont le jeux a besoin pour fonctionner
         /// </summary>
         private CelluleHelper celluleHelper;
@@ -71,14 +63,6 @@ namespace GameOfLife.ViewModel
         #endregion
 
         #region Propriete
-        /// <summary>
-        /// Reprécende la couleur qui remplis les cellules vivante sur la grille
-        /// </summary>
-        public Color CelluleColor { get { return celluleColor; } set { celluleColor = value;ValeurChanger(); } }
-        /// <summary>
-        /// Représente la couleur de la bordure entre les cellule
-        /// </summary>
-        public Color BorderColor { get { return borderColor; } set { borderColor = value; ValeurChanger(); } }
         /// <summary>
         /// Représante la tail en x du canevas en jeux
         /// </summary>
