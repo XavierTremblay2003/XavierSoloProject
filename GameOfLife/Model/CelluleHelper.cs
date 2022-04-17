@@ -56,9 +56,16 @@ namespace GameOfLife.Model
         /// </summary>
         public void ApplyRule()
         {
-            foreach (Cellule cellule in Cellules)
+            List<int> nbVoisineAll = new();
+
+            //Prend le nombre de voisine de chanque cellule
+            Cellules.ToList().ForEach(cellule => nbVoisineAll.Add(GetNombreCelluleVivante(GetAllVoisine(cellule))));
+
+            //Applique les règle a chaque cellule avec le nombre de voisine calculer
+            foreach ( Cellule cellule in Cellules)
             {
-                int nbVoisineVivante = GetNombreCelluleVivante(GetAllVoisine(cellule));
+                int nbVoisineVivante = nbVoisineAll.FirstOrDefault();
+                nbVoisineAll.RemoveAt(0);
 
                 if (cellule.IsVivante && nbVoisineVivante < 2)
                 {
@@ -126,6 +133,11 @@ namespace GameOfLife.Model
             int coordoneXVoisine = celluleVoisine.CoordonneCellule.CoordonneAbsolue.Item1;
             int coordoneYVoisine = celluleVoisine.CoordonneCellule.CoordonneAbsolue.Item2;
 
+            // Ne pas mettre voisine si ces la mème cellule
+            if(cellule == celluleVoisine)
+            {
+                return false;
+            }
             // Vérification si les cellule sont dans le bon rang avec leur coordonnée X et Y
             return InRange(coordoneXVoisine, coordoneXCellule - 1, coordoneXCellule + 1) && InRange(coordoneYVoisine, coordoneYCellule - 1, coordoneYCellule + 1);
         }

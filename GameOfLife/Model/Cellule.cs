@@ -60,12 +60,14 @@ namespace GameOfLife.Model
             }
         }
 
-
-
         /// <summary>
-        /// Valeur qui détermine si la cellule est vivanteé
+        /// Valeur qui détermine si la cellule est vivante
         /// </summary>
-        public bool IsVivante { get; set; }
+        private bool isVivante;
+        /// <summary>
+        /// Valeur qui détermine si la cellule est vivante
+        /// </summary>
+        public bool IsVivante { get { return isVivante; } set { isVivante = value;ValeurChanger(); ValeurChanger("CouleurCellule"); } }
 
         /// <summary>
         /// Constructeur qui permet de créer une cellule à partir d'un ensemble de coordonner prédéfinie avec un état initialle morte.
@@ -110,7 +112,6 @@ namespace GameOfLife.Model
             {
                 IsVivante=true;
             }
-            ValeurChanger();
             ValeurChanger("CouleurCellule");
         }
     }
