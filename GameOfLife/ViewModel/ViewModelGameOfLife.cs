@@ -87,7 +87,11 @@ namespace GameOfLife.ViewModel
         /// <summary>
         /// Réprésante si la partie est l'ancer ou non
         /// </summary>
-        public bool IsGameStart { get { return isGameStart; } set { isGameStart = value; ValeurChanger(); } }
+        public bool IsGameStart { get { return isGameStart; } set { isGameStart = value; ValeurChanger(); ValeurChanger("IsCahngenbIteration"); } }
+        /// <summary>
+        /// Réprésante la posibiliter de changer le nombre t'ittération
+        /// </summary>
+        public bool CanChangedNbIteration { get { return !isGameStart; } }
         /// <summary>
         /// Représente le nombre d'ithération du jeux
         /// </summary>
@@ -103,18 +107,21 @@ namespace GameOfLife.ViewModel
         /// Fonction executer lor du démarage de la partie
         /// </summary>
         /// <param name="parameter">paramète de la fonction non utiliser</param>
-        private void StartGameExecute(object parameter)
+        private async void StartGameAsyncExecute(object parameter)
         {
-            Task.Run(async () =>
+            IsGameStart = true;
+            await Task.Run(async () =>
             {
                 for (int i = nbIterration; i > 0; i--)
                 {
                     celluleHelper.ApplyRule();
                     nbIterration--;
-                    await Task.Delay(100);
                     ValeurChanger("NbIterration");
+                    await Task.Delay(250);
                 }
             });
+            IsGameStart = false;
+
         }
         /// <summary>
         /// Fonction pour vérifier si la partie peut ètre jouer
@@ -123,7 +130,7 @@ namespace GameOfLife.ViewModel
         /// <returns>True si la partie peut être lancé sinon False</returns>
         private bool StartGameCanExecute(object parameter)
         {
-            return NbIterration != default(int).ToString();
+            return NbIterration != default(int).ToString() && !isGameStart;
         }
 
 
@@ -137,7 +144,7 @@ namespace GameOfLife.ViewModel
         public ViewModelGameOfLife(int nbCelluleX,int nbCelluleY)
         {
             //Initiallisation des ICommand
-            StartGame = new CommandeRelais(StartGameExecute, StartGameCanExecute);
+            StartGame = new CommandeRelais(StartGameAsyncExecute, StartGameCanExecute);
 
 
             InisializeJeu(nbCelluleX, nbCelluleY);

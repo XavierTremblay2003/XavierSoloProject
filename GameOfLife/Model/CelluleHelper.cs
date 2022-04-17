@@ -56,9 +56,16 @@ namespace GameOfLife.Model
         /// </summary>
         public void ApplyRule()
         {
-            foreach (Cellule cellule in Cellules)
+            List<int> nbVoisineAll = new();
+
+            //Prend le nombre de voisine de chanque cellule
+            Cellules.ToList().ForEach(cellule => nbVoisineAll.Add(GetNombreCelluleVivante(GetAllVoisine(cellule))));
+
+            //Applique les règle a chaque cellule avec le nombre de voisine calculer
+            foreach ( Cellule cellule in Cellules)
             {
-                int nbVoisineVivante = GetNombreCelluleVivante(GetAllVoisine(cellule));
+                int nbVoisineVivante = nbVoisineAll.FirstOrDefault();
+                nbVoisineAll.RemoveAt(0);
 
                 if (cellule.IsVivante && nbVoisineVivante < 2)
                 {

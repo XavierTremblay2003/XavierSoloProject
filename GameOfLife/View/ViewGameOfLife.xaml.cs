@@ -22,7 +22,7 @@ namespace GameOfLife.View
     {
         public ViewGameOfLife()
         {
-            ViewModelGameOfLife vmGame = new(3, 3);
+            ViewModelGameOfLife vmGame = new(20, 20);
             this.DataContext = vmGame;
             InitializeComponent();
         }
