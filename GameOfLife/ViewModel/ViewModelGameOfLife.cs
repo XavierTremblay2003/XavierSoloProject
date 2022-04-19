@@ -39,7 +39,7 @@ namespace GameOfLife.ViewModel
         /// <summary>
         /// Taille minimum qu'une cellule peut avoir dasn l'afichage
         /// </summary>
-        const int MIN_TAIL_CELLULE = 20;
+        const int MIN_TAIL_CELLULE = 10;
         /// <summary>
         /// Taille minimal du canevas pour l'affichage du jeux
         /// </summary>
@@ -83,7 +83,7 @@ namespace GameOfLife.ViewModel
         /// <summary>
         /// Retourne la liste de cellule du cellule Helper
         /// </summary>
-        public ObservableCollection<Cellule> ListeCellues { get { return celluleHelper.Cellules; } }
+        public ObservableCollection<Cellule> ListeCellues { get { return celluleHelper.CellulesView; } }
         /// <summary>
         /// Réprésante si la partie est l'ancer ou non
         /// </summary>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,9 +14,23 @@ namespace GameOfLife.Model
     class CelluleHelper
     {
         /// <summary>
-        /// Représante toute les cellule du CelluleHelper
+        /// Nombre de cellule dasn la dimmantion y
         /// </summary>
-        public ObservableCollection<Cellule> Cellules;
+        private int nbCelluleY;
+        /// <summary>
+        /// Nombre de cellule dasn la dimmantion X
+        /// </summary>
+        private int nbCelluleX;
+
+
+        /// <summary>
+        /// Représente l'ensemble des cellule ordonner pour pouvoir ètre afficher dans une vue
+        /// </summary>
+        public ObservableCollection<Cellule> CellulesView;
+        /// <summary>
+        /// Représante un tableaux de cellule pour appliquer la logique du jeux de la vie sur lui
+        /// </summary>
+        private Cellule[,] cellulesLogique;
         /// <summary>
         /// Construct un CelluleHelper avec Cellules pleine d'une grille de cellules
         /// </summary>
@@ -24,7 +39,8 @@ namespace GameOfLife.Model
         /// <param name="tailGrilleY">Taille de la grille en Y</param>
         public CelluleHelper(double coefficientConversion, int tailGrilleX,int tailGrilleY)
         {
-            Cellules = InisialiseGrille(coefficientConversion, tailGrilleX, tailGrilleY);
+            nbCelluleY = tailGrilleY;
+            InisialiseGrille(coefficientConversion, tailGrilleX, tailGrilleY);
         }
         /// <summary>
         /// Initialiser une observableCollection de cellule a partir d'un coefficient de Conversion et la taille d'une grille en X et Y
@@ -33,20 +49,22 @@ namespace GameOfLife.Model
         /// <param name="tailGrilleX">Taille de la grille en X</param>
         /// <param name="tailGrilleY">Taille de la grille en Y</param>
         /// <returns>Une ObservableCollection de cellule avec les coordoner dans la grille</returns>
-        private ObservableCollection<Cellule> InisialiseGrille(double coefficientConversion, int tailGrilleX,int tailGrilleY)
+        private void InisialiseGrille(double coefficientConversion, int tailGrilleX,int tailGrilleY)
         {
-            ObservableCollection<Cellule> lesCellules = new();
+            CellulesView = new();
+            cellulesLogique = new Cellule[tailGrilleX,tailGrilleY];
 
-            for(int i=0;i < tailGrilleX;i++)
+
+            for (int i=0;i < tailGrilleX;i++)
             {
                 for (int j = 0; j < tailGrilleY; j++)
                 {
                     Coordonne coordonneCellule = new(coefficientConversion, i, j);
                     Cellule cellule = new(coordonneCellule);
-                    lesCellules.Add(cellule);
+                    CellulesView.Add(cellule);
+                    cellulesLogique[i, j] = cellule;
                 }
             }
-            return lesCellules;
         }
 
         #region Aplique les règle du jeux de la vie
@@ -59,10 +77,10 @@ namespace GameOfLife.Model
             List<int> nbVoisineAll = new();
 
             //Prend le nombre de voisine de chanque cellule
-            Cellules.ToList().ForEach(cellule => nbVoisineAll.Add(GetNombreCelluleVivante(GetAllVoisine(cellule))));
+            CellulesView.ToList().ForEach(cellule => nbVoisineAll.Add(GetNombreCelluleVivante(GetAllVoisine(cellule))));
 
             //Applique les règle a chaque cellule avec le nombre de voisine calculer
-            foreach ( Cellule cellule in Cellules)
+            foreach ( Cellule cellule in CellulesView)
             {
                 int nbVoisineVivante = nbVoisineAll.FirstOrDefault();
                 nbVoisineAll.RemoveAt(0);
@@ -116,8 +134,47 @@ namespace GameOfLife.Model
         /// <returns>Un tableaux de toute les cellules voisinne</returns>
         private Cellule[] GetAllVoisine(Cellule cellule)
         {
-            Cellule[] lesCellules = Cellules.Where((celluleVoisine) => IsVoisinne(cellule, celluleVoisine)).ToArray();
-            return lesCellules;
+            List<Cellule> celluleVoisine = new();
+            int coordX = cellule.CoordonneCellule.CoordonneAbsolue.Item1;
+            int coordY = cellule.CoordonneCellule.CoordonneAbsolue.Item2;
+
+            int minX;
+            int maxX;
+
+            // Regarder si la cellule est sur le bord gauche de la grille et si ces il depase fixer le bord a 0
+            if (coordX - 1 <= 0)
+                minX = 0;
+            else
+                minX = coordX - 1;
+
+            // Regarder si la cellule est sur le bord droit de la grille et si ces il depase fixer le bord a la valeur maximum du bord
+            if (coordX + 1 > cellulesLogique.GetLength(0))
+                maxX = cellulesLogique.GetLength(0);
+            else
+                maxX = coordX + 1;
+
+            if(coordY-1 >= 0)
+            {
+                for (int i = minX; i <= maxX; i++)
+                {
+                    celluleVoisine.Add(cellulesLogique[i, coordY - 1]);
+                }
+            }
+
+            for(int i = minX; i <= maxX;i++)
+            {
+                if (i == coordX) continue;
+                celluleVoisine.Add(cellulesLogique[i, coordY]);
+            }
+
+            if(coordY+1 <= cellulesLogique.GetLength(1))
+            {
+                for (int i = minX; i <= maxX; i++)
+                {
+                    celluleVoisine.Add(cellulesLogique[i, coordY + 1]);
+                }
+            }
+            return celluleVoisine.ToArray();
         }
         /// <summary>
         /// Détermine si la condition pour être aux alentours de la cellule est respecter
