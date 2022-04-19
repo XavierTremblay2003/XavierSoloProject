@@ -13,8 +13,19 @@
   <ItemGroup>
     <Reference Include="CommandRelais">
       <HintPath>bin\Debug\net5.0-windows\CommandRelais.dll</HintPath>
-      <Private>True</Private>
+      <Private>true</Private>
+    </Reference>
+  <Reference Include="CommandRelais">
+      <HintPath>bin\Release\net5.0-windows\CommandRelais.dll</HintPath>
+      <Private>true</Private>
     </Reference>
   </ItemGroup>
+	
+	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+		<Copy SourceFiles="Include/CommandRelais.dll" DestinationFolder="$(OutDir)" />
+	</Target>
+	<Target Name="CopyCustomContentOnPublish" AfterTargets="Publish">
+		<Copy SourceFiles="foo.txt" DestinationFolder="$(PublishDir)" />
+	</Target>
 
 </Project>
