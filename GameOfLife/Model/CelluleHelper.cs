@@ -40,6 +40,24 @@ namespace GameOfLife.Model
             LinkCelluleWitchVoisine();
         }
         /// <summary>
+        /// Génère une forme alléatoire de cellule avec une probabiliter de 1/6
+        /// </summary>
+        public void GenerateFormeAlleatoire()
+        {
+            Random ran = new();
+            foreach (Cellule cellule in CellulesView)
+            {
+                int Result = ran.Next(0, 6);
+
+                if(Result == 3)
+                {
+                    cellule.IsVivante = !cellule.IsVivante;
+                }
+            }
+        }
+
+
+        /// <summary>
         /// Initialiser une observableCollection de cellule a partir d'un coefficient de Conversion et la taille d'une grille en X et Y
         /// </summary>
         /// <param name="coefficientConversion">Le coefficient de conversion de la grille de cellule</param>
