@@ -29,8 +29,12 @@
 
         <!-- Caneva avec les cellules à l'interrieure -->
         <Grid Grid.Column="0" Margin="20,20,20,20" Width="{Binding CanvaTailX}" Height="{Binding CanvaTailY}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="254*"/>
+                <RowDefinition Height="117*"/>
+            </Grid.RowDefinitions>
             <!-- Data template pour Afficher la grille de cellule -->
-            <ItemsControl ItemsSource="{Binding ListeCellues}">
+            <ItemsControl ItemsSource="{Binding ListeCellues}" Grid.RowSpan="2">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <!-- Canevas pour afficher les cellule dessus -->
@@ -119,12 +123,12 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Label>Nombre d'itérations : </Label>
+                <Label>Nombre d'itérations :</Label>
                 <TextBox IsEnabled="{Binding CanChangedNbIteration}" Text="{Binding NbIterration, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="150"></TextBox>
             </Grid>
             <Button Command="{Binding StartGame}" Background="Green" Height="22" Foreground="White" Content="Démarer" Grid.Row="2">
             </Button>
-           
+
         </Grid>
 
 

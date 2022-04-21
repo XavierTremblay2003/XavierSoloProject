@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace GameOfLife.View
 {
     /// <summary>
-    /// Logique d'interaction pour ViewGameOfLife.xaml
+    /// Logique d'interaction pour GrilleTail.xaml
     /// </summary>
-    public partial class ViewGameOfLife : Window
+    public partial class ViewGrilleTail : Window
     {
-        public ViewGameOfLife(object dataContext)
+        public ViewGrilleTail()
         {
-
-            this.DataContext = dataContext;
+            this.DataContext = new ViewModelGrilleTail();
             InitializeComponent();
         }
     }
