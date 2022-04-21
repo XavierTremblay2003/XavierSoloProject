@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -39,7 +40,7 @@ namespace GameOfLife.ViewModel
         /// <summary>
         /// Taille minimum qu'une cellule peut avoir dasn l'afichage
         /// </summary>
-        const int MIN_TAIL_CELLULE = 20;
+        const int MIN_TAIL_CELLULE = 10;
         /// <summary>
         /// Taille minimal du canevas pour l'affichage du jeux
         /// </summary>
@@ -83,7 +84,7 @@ namespace GameOfLife.ViewModel
         /// <summary>
         /// Retourne la liste de cellule du cellule Helper
         /// </summary>
-        public ObservableCollection<Cellule> ListeCellues { get { return celluleHelper.Cellules; } }
+        public ObservableCollection<Cellule> ListeCellues { get { return celluleHelper.CellulesView; } }
         /// <summary>
         /// Réprésante si la partie est l'ancer ou non
         /// </summary>
@@ -110,14 +111,18 @@ namespace GameOfLife.ViewModel
         private async void StartGameAsyncExecute(object parameter)
         {
             IsGameStart = true;
+            
             await Task.Run(async () =>
             {
                 for (int i = nbIterration; i > 0; i--)
                 {
+                    DateTime TimeAvant = DateTime.Now;
                     celluleHelper.ApplyRule();
                     nbIterration--;
                     ValeurChanger("NbIterration");
-                    await Task.Delay(250);
+                    DateTime TimeApres = DateTime.Now;
+                    long tickDiif = TimeApres.Ticks - TimeAvant.Ticks;
+                    await Task.Delay(TimeSpan.FromTicks((500 * TimeSpan.TicksPerMillisecond)-tickDiif));
                 }
             });
             IsGameStart = false;

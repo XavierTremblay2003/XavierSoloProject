@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,9 +14,20 @@ namespace GameOfLife.Model
     class CelluleHelper
     {
         /// <summary>
-        /// Représante toute les cellule du CelluleHelper
+        /// Représente l'ensemble des cellule ordonner pour pouvoir ètre afficher dans une vue
         /// </summary>
-        public ObservableCollection<Cellule> Cellules;
+        public ObservableCollection<Cellule> CellulesView;
+
+        /// <summary>
+        /// Représante un tableaux de cellule pour appliquer la logique du jeux de la vie sur lui
+        /// </summary>
+        private Cellule[,] cellulesLogique;
+
+        /// <summary>
+        /// Représente la liste de toute les cellule avec le status de toute leur voisine
+        /// </summary>
+        private Dictionary<Cellule, Delegate[]> kVCellulesAvecVoisine; 
+
         /// <summary>
         /// Construct un CelluleHelper avec Cellules pleine d'une grille de cellules
         /// </summary>
@@ -24,7 +36,8 @@ namespace GameOfLife.Model
         /// <param name="tailGrilleY">Taille de la grille en Y</param>
         public CelluleHelper(double coefficientConversion, int tailGrilleX,int tailGrilleY)
         {
-            Cellules = InisialiseGrille(coefficientConversion, tailGrilleX, tailGrilleY);
+            InisialiseGrille(coefficientConversion, tailGrilleX, tailGrilleY);
+            LinkCelluleWitchVoisine();
         }
         /// <summary>
         /// Initialiser une observableCollection de cellule a partir d'un coefficient de Conversion et la taille d'une grille en X et Y
@@ -33,20 +46,22 @@ namespace GameOfLife.Model
         /// <param name="tailGrilleX">Taille de la grille en X</param>
         /// <param name="tailGrilleY">Taille de la grille en Y</param>
         /// <returns>Une ObservableCollection de cellule avec les coordoner dans la grille</returns>
-        private ObservableCollection<Cellule> InisialiseGrille(double coefficientConversion, int tailGrilleX,int tailGrilleY)
+        private void InisialiseGrille(double coefficientConversion, int tailGrilleX,int tailGrilleY)
         {
-            ObservableCollection<Cellule> lesCellules = new();
+            CellulesView = new();
+            cellulesLogique = new Cellule[tailGrilleX,tailGrilleY];
 
-            for(int i=0;i < tailGrilleX;i++)
+
+            for (int i=0;i < tailGrilleX;i++)
             {
                 for (int j = 0; j < tailGrilleY; j++)
                 {
                     Coordonne coordonneCellule = new(coefficientConversion, i, j);
                     Cellule cellule = new(coordonneCellule);
-                    lesCellules.Add(cellule);
+                    CellulesView.Add(cellule);
+                    cellulesLogique[i, j] = cellule;
                 }
             }
-            return lesCellules;
         }
 
         #region Aplique les règle du jeux de la vie
@@ -58,11 +73,13 @@ namespace GameOfLife.Model
         {
             List<int> nbVoisineAll = new();
 
-            //Prend le nombre de voisine de chanque cellule
-            Cellules.ToList().ForEach(cellule => nbVoisineAll.Add(GetNombreCelluleVivante(GetAllVoisine(cellule))));
+            foreach (KeyValuePair<Cellule,Delegate[]> CelluleAvecVoisine in kVCellulesAvecVoisine)
+            {
+                nbVoisineAll.Add(GetNombreCelluleVivante(CelluleAvecVoisine.Value));
+            }
 
             //Applique les règle a chaque cellule avec le nombre de voisine calculer
-            foreach ( Cellule cellule in Cellules)
+            foreach ( Cellule cellule in CellulesView)
             {
                 int nbVoisineVivante = nbVoisineAll.FirstOrDefault();
                 nbVoisineAll.RemoveAt(0);
@@ -83,18 +100,19 @@ namespace GameOfLife.Model
                 }
             }
         }
+
         /// <summary>
-        /// Calcule le nombre de cellules vivante dans le tableaux
+        /// Retourne le nombre de cellule vivante avec les methode IsVivante de chanque cellule voisine
         /// </summary>
-        /// <param name="lesCellules">Tableaux de cellules dont on veut savoir le nombre de cellues vivante</param>
-        /// <returns>Le nombre de cellule vivante dans le tableaux</returns>
-        private int GetNombreCelluleVivante(Cellule[] lesCellules)
+        /// <param name="etatVoisines">Methode IsVinvante des cellule voisine</param>
+        /// <returns>Le nombre de cellule vivante</returns>
+        private int GetNombreCelluleVivante(Delegate[] etatVoisines)
         {
             int nbVivante = 0;
 
-            foreach (Cellule cellule in lesCellules)
+            foreach (Delegate etatVoisine  in etatVoisines)
             {
-                if(cellule.IsVivante)
+                if((bool)etatVoisine.DynamicInvoke(null))
                 {
                     nbVivante++;
                 }
@@ -116,42 +134,85 @@ namespace GameOfLife.Model
         /// <returns>Un tableaux de toute les cellules voisinne</returns>
         private Cellule[] GetAllVoisine(Cellule cellule)
         {
-            Cellule[] lesCellules = Cellules.Where((celluleVoisine) => IsVoisinne(cellule, celluleVoisine)).ToArray();
-            return lesCellules;
-        }
-        /// <summary>
-        /// Détermine si la condition pour être aux alentours de la cellule est respecter
-        /// </summary>
-        /// <param name="cellule">Cellule dont on veut savoir si l'autre est voisines</param>
-        /// <param name="celluleVoisine">Cellule dont on veut savoir si elle est la voisine</param>
-        /// <returns>Retourne True si les cellule sont voisinne et retourne false si les cellule ne le sont pas</returns>
-        private bool IsVoisinne(Cellule cellule,Cellule celluleVoisine)
-        {
-            // Prise des nombre pour les coordoner de chaque cellule.
-            int coordoneXCellule = cellule.CoordonneCellule.CoordonneAbsolue.Item1;
-            int coordoneYCellule = cellule.CoordonneCellule.CoordonneAbsolue.Item2;
-            int coordoneXVoisine = celluleVoisine.CoordonneCellule.CoordonneAbsolue.Item1;
-            int coordoneYVoisine = celluleVoisine.CoordonneCellule.CoordonneAbsolue.Item2;
+            List<Cellule> celluleVoisine = new();
+            int coordX = cellule.CoordonneCellule.CoordonneAbsolue.Item1;
+            int coordY = cellule.CoordonneCellule.CoordonneAbsolue.Item2;
 
-            // Ne pas mettre voisine si ces la mème cellule
-            if(cellule == celluleVoisine)
+            int minX;
+            int maxX;
+
+            // Regarder si la cellule est sur le bord gauche de la grille et si il depase fixer le bord a 0
+            if (coordX - 1 <= 0)
+                minX = 0;
+            else
+                minX = coordX - 1;
+
+            // Regarder si la cellule est sur le bord droit de la grille et si il depase fixer le bord a la valeur maximum du bord
+            if (coordX + 1 >= cellulesLogique.GetLength(0))
+                maxX = cellulesLogique.GetLength(0)-1; // -1 parce que les tableaux commance a 0
+            else
+                maxX = coordX + 1;
+
+            // Vérifie les cellule au y-1 de l'originale si il n'existe pas ne les calculle pas
+            if(coordY-1 >= 0)
             {
-                return false;
+                for (int i = minX; i <= maxX; i++)
+                {
+                    celluleVoisine.Add(cellulesLogique[i, coordY - 1]);
+                }
             }
-            // Vérification si les cellule sont dans le bon rang avec leur coordonnée X et Y
-            return InRange(coordoneXVoisine, coordoneXCellule - 1, coordoneXCellule + 1) && InRange(coordoneYVoisine, coordoneYCellule - 1, coordoneYCellule + 1);
+            // Calcule les cellule aux mème X que l'originale
+            for(int i = minX; i <= maxX;i++)
+            {
+                if (i == coordX) continue;
+                celluleVoisine.Add(cellulesLogique[i, coordY]);
+            }
+
+            // Vérifie les cellule au y+1 de l'originale si il n'existe pas ne les calculle pas
+            if (coordY+1 < cellulesLogique.GetLength(1))
+            {
+                for (int i = minX; i <= maxX; i++)
+                {
+                    celluleVoisine.Add(cellulesLogique[i, coordY + 1]);
+                }
+            }
+            return celluleVoisine.ToArray();
         }
+        #endregion
+
+        #region Assosiation des Is Vivante des voisine a la cellule
         /// <summary>
-        /// Détermine si un nombre est compris entre deux autre nombre
+        /// Lie toute les cellule dans CelluleView avec l'état de ces voisine dasn le dictionnaire kVCelluleAvecVoisine
         /// </summary>
-        /// <param name="nombre">Nombre que l'on veut savoir si il est dans l'étendue</param>
-        /// <param name="min">Nombre minimum de l'étendue, inclusivement</param>
-        /// <param name="max">Nombre maximum de l'étendue, inclusivement</param>
-        /// <returns>Retourne True si le nombre est dans l'étendue et False si le nombre n'est pas dasn l'étendue</returns>
-        private bool InRange(int nombre, int min, int max)
+        private void LinkCelluleWitchVoisine()
         {
-            return (nombre >= min) && (nombre <= max);
+            kVCellulesAvecVoisine = new Dictionary<Cellule, Delegate[]>();
+            // Recherche dasn toute les cellule de la grille
+            foreach (Cellule cellule in CellulesView)
+            {
+                List<Delegate> delegatesIsVivante = new();
+                //Recherche toute les voisine de la cellule
+                foreach (Cellule Voisine in GetAllVoisine(cellule))
+                {
+                    delegatesIsVivante.Add(GetGetMethodeIsVivanteCellule(Voisine));
+                }
+                // Ajoute la cellule avec ces voisine dans le dictionnaire
+                kVCellulesAvecVoisine.Add(cellule,delegatesIsVivante.ToArray());
+            }
         }
+
+        /// <summary>
+        /// Renvoi la vonction Get de la propriéter IsVivante d'une cellule
+        /// </summary>
+        /// <param name="cellule">La cellule dont on veut la fonction Get</param>
+        /// <returns>La référence a la fonction Get de la propriété IsVivante d'une cellule</returns>
+        private Func<bool> GetGetMethodeIsVivanteCellule(Cellule cellule)
+        {
+            Func<bool> fonctionGetCellule = () => (bool)cellule.IsVivante;
+
+            return fonctionGetCellule;
+        }
+
 
         #endregion
 
