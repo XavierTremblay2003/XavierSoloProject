@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -110,14 +111,18 @@ namespace GameOfLife.ViewModel
         private async void StartGameAsyncExecute(object parameter)
         {
             IsGameStart = true;
+            
             await Task.Run(async () =>
             {
                 for (int i = nbIterration; i > 0; i--)
                 {
+                    DateTime TimeAvant = DateTime.Now;
                     celluleHelper.ApplyRule();
                     nbIterration--;
                     ValeurChanger("NbIterration");
-                    await Task.Delay(250);
+                    DateTime TimeApres = DateTime.Now;
+                    long tickDiif = TimeApres.Ticks - TimeAvant.Ticks;
+                    await Task.Delay(TimeSpan.FromTicks((500 * TimeSpan.TicksPerMillisecond)-tickDiif));
                 }
             });
             IsGameStart = false;

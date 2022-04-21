@@ -17,10 +17,17 @@ namespace GameOfLife.Model
         /// Représente l'ensemble des cellule ordonner pour pouvoir ètre afficher dans une vue
         /// </summary>
         public ObservableCollection<Cellule> CellulesView;
+
         /// <summary>
         /// Représante un tableaux de cellule pour appliquer la logique du jeux de la vie sur lui
         /// </summary>
         private Cellule[,] cellulesLogique;
+
+        /// <summary>
+        /// Représente la liste de toute les cellule avec le status de toute leur voisine
+        /// </summary>
+        private Dictionary<Cellule, Delegate[]> kVCellulesAvecVoisine; 
+
         /// <summary>
         /// Construct un CelluleHelper avec Cellules pleine d'une grille de cellules
         /// </summary>
@@ -30,6 +37,7 @@ namespace GameOfLife.Model
         public CelluleHelper(double coefficientConversion, int tailGrilleX,int tailGrilleY)
         {
             InisialiseGrille(coefficientConversion, tailGrilleX, tailGrilleY);
+            LinkCelluleWitchVoisine();
         }
         /// <summary>
         /// Initialiser une observableCollection de cellule a partir d'un coefficient de Conversion et la taille d'une grille en X et Y
@@ -65,8 +73,10 @@ namespace GameOfLife.Model
         {
             List<int> nbVoisineAll = new();
 
-            //Prend le nombre de voisine de chanque cellule
-            CellulesView.ToList().ForEach(cellule => nbVoisineAll.Add(GetNombreCelluleVivante(GetAllVoisine(cellule))));
+            foreach (KeyValuePair<Cellule,Delegate[]> CelluleAvecVoisine in kVCellulesAvecVoisine)
+            {
+                nbVoisineAll.Add(GetNombreCelluleVivante(CelluleAvecVoisine.Value));
+            }
 
             //Applique les règle a chaque cellule avec le nombre de voisine calculer
             foreach ( Cellule cellule in CellulesView)
@@ -90,18 +100,19 @@ namespace GameOfLife.Model
                 }
             }
         }
+
         /// <summary>
-        /// Calcule le nombre de cellules vivante dans le tableaux
+        /// Retourne le nombre de cellule vivante avec les methode IsVivante de chanque cellule voisine
         /// </summary>
-        /// <param name="lesCellules">Tableaux de cellules dont on veut savoir le nombre de cellues vivante</param>
-        /// <returns>Le nombre de cellule vivante dans le tableaux</returns>
-        private int GetNombreCelluleVivante(Cellule[] lesCellules)
+        /// <param name="etatVoisines">Methode IsVinvante des cellule voisine</param>
+        /// <returns>Le nombre de cellule vivante</returns>
+        private int GetNombreCelluleVivante(Delegate[] etatVoisines)
         {
             int nbVivante = 0;
 
-            foreach (Cellule cellule in lesCellules)
+            foreach (Delegate etatVoisine  in etatVoisines)
             {
-                if(cellule.IsVivante)
+                if((bool)etatVoisine.DynamicInvoke(null))
                 {
                     nbVivante++;
                 }
@@ -167,6 +178,42 @@ namespace GameOfLife.Model
             }
             return celluleVoisine.ToArray();
         }
+        #endregion
+
+        #region Assosiation des Is Vivante des voisine a la cellule
+        /// <summary>
+        /// Lie toute les cellule dans CelluleView avec l'état de ces voisine dasn le dictionnaire kVCelluleAvecVoisine
+        /// </summary>
+        private void LinkCelluleWitchVoisine()
+        {
+            kVCellulesAvecVoisine = new Dictionary<Cellule, Delegate[]>();
+            // Recherche dasn toute les cellule de la grille
+            foreach (Cellule cellule in CellulesView)
+            {
+                List<Delegate> delegatesIsVivante = new();
+                //Recherche toute les voisine de la cellule
+                foreach (Cellule Voisine in GetAllVoisine(cellule))
+                {
+                    delegatesIsVivante.Add(GetGetMethodeIsVivanteCellule(Voisine));
+                }
+                // Ajoute la cellule avec ces voisine dans le dictionnaire
+                kVCellulesAvecVoisine.Add(cellule,delegatesIsVivante.ToArray());
+            }
+        }
+
+        /// <summary>
+        /// Renvoi la vonction Get de la propriéter IsVivante d'une cellule
+        /// </summary>
+        /// <param name="cellule">La cellule dont on veut la fonction Get</param>
+        /// <returns>La référence a la fonction Get de la propriété IsVivante d'une cellule</returns>
+        private Func<bool> GetGetMethodeIsVivanteCellule(Cellule cellule)
+        {
+            Func<bool> fonctionGetCellule = () => (bool)cellule.IsVivante;
+
+            return fonctionGetCellule;
+        }
+
+
         #endregion
 
     }
