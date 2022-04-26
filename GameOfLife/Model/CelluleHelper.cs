@@ -16,7 +16,7 @@ namespace GameOfLife.Model
         /// <summary>
         /// Représente l'ensemble des cellule ordonner pour pouvoir ètre afficher dans une vue
         /// </summary>
-        public ObservableCollection<Cellule> CellulesView;
+        public List<Cellule> CellulesView;
 
         /// <summary>
         /// Représante un tableaux de cellule pour appliquer la logique du jeux de la vie sur lui
@@ -66,7 +66,8 @@ namespace GameOfLife.Model
         /// <returns>Une ObservableCollection de cellule avec les coordoner dans la grille</returns>
         private void InisialiseGrille(double coefficientConversion, int tailGrilleX,int tailGrilleY)
         {
-            CellulesView = new();
+            CellulesView = new((tailGrilleX*tailGrilleY));
+
             cellulesLogique = new Cellule[tailGrilleX,tailGrilleY];
 
 
