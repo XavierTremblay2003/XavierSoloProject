@@ -85,7 +85,7 @@ namespace GameOfLife.ViewModel
         /// <summary>
         /// Retourne la liste de cellule du cellule Helper
         /// </summary>
-        public ObservableCollection<Cellule> ListeCellues { get { return celluleHelper.CellulesView; } }
+        public List<Cellule> ListeCellues { get { return celluleHelper.CellulesView; } }
         /// <summary>
         /// Réprésante si la partie est l'ancer ou non
         /// </summary>
@@ -252,6 +252,10 @@ namespace GameOfLife.ViewModel
             CreateFormeAlleatoire = new CommandeRelais(CreateFormeAlleatoireExecute, CreateFormAlleatoireCanExecute);
 
             InisializeJeu(nbCelluleX, nbCelluleY);
+
+            CelluleImportExport celluleImportExport = new();
+            CreateFormeAlleatoireExecute(this);
+            celluleImportExport.ExportCellule(ListeCellues.ToList(), "test.csv");
         }
 
         #region Methode de démarage
