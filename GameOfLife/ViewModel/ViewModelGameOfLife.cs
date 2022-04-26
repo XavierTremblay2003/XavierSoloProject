@@ -101,6 +101,8 @@ namespace GameOfLife.ViewModel
         #endregion
 
         #region CommandRelais
+
+        #region Start game
         /// <summary>
         /// Fonction lancer quand on veut lancer le jeux fait changer les cellule d'état
         /// </summary>
@@ -127,7 +129,6 @@ namespace GameOfLife.ViewModel
                 }
             });
             IsGameStart = false;
-
         }
         /// <summary>
         /// Fonction pour vérifier si la partie peut ètre jouer
@@ -138,6 +139,103 @@ namespace GameOfLife.ViewModel
         {
             return NbIterration != default(int).ToString() && !isGameStart;
         }
+
+        #endregion
+
+        #region FormePredefini
+        /// <summary>
+        /// Représente la forme 1 a charger
+        /// </summary>
+        public ICommand Forme1 { get; set; }
+        /// <summary>
+        /// Méthode appeler pour chanrger la forme 1
+        /// </summary>
+        /// <param name="parameter"></param>
+        private void From1Execute(object parameter)
+        {
+
+        }
+        /// <summary>
+        /// Méthode appeler pour voir si l'on peut chanrger la forme 1
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        private bool From1CanExecute(object parameter)
+        {
+            return !IsGameStart;
+        }
+
+        /// <summary>
+        /// Représente la forme 2 a charger
+        /// </summary>
+        public ICommand Forme2 { get; set; }
+        /// <summary>
+        /// Méthode appeler pour chanrger la forme 2
+        /// </summary>
+        /// <param name="parameter"></param>
+        private void From2Execute(object parameter)
+        {
+
+        }
+        /// <summary>
+        /// Méthode appeler pour voir si l'on peut chanrger la forme 2
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        private bool From2CanExecute(object parameter)
+        {
+            return !IsGameStart;
+        }
+
+        /// <summary>
+        /// Représente la forme 3 a charger
+        /// </summary>
+        public ICommand Forme3 { get; set; }
+        /// <summary>
+        /// Méthode appeler pour chanrger la forme 3
+        /// </summary>
+        /// <param name="parameter"></param>
+        private void From3Execute(object parameter)
+        {
+
+        }
+        /// <summary>
+        /// Méthode appeler pour voir si l'on peut chanrger la forme 3
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        private bool From3CanExecute(object parameter)
+        {
+            return !IsGameStart;
+        }
+
+        #endregion
+
+        #region Forme aléatoire
+        /// <summary>
+        /// Proprieter pour générer une forme alléatoire
+        /// </summary>
+        public ICommand CreateFormeAlleatoire { get; set; }
+        
+        /// <summary>
+        /// Methode pour créer la forme alléatoire
+        /// </summary>
+        /// <param name="parameter"></param>
+        private void CreateFormeAlleatoireExecute(object parameter)
+        {
+            celluleHelper.GenerateFormeAlleatoire();
+        }
+        /// <summary>
+        /// Méthode pour savoir si nous pouvont créer une forme alléatoire
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        private bool CreateFormAlleatoireCanExecute(object parameter)
+        {
+            return !IsGameStart;
+        }
+
+        #endregion
 
 
 
@@ -151,7 +249,7 @@ namespace GameOfLife.ViewModel
         {
             //Initiallisation des ICommand
             StartGame = new CommandeRelais(StartGameAsyncExecute, StartGameCanExecute);
-
+            CreateFormeAlleatoire = new CommandeRelais(CreateFormeAlleatoireExecute, CreateFormAlleatoireCanExecute);
 
             InisializeJeu(nbCelluleX, nbCelluleY);
         }
