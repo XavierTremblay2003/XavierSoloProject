@@ -26,7 +26,7 @@ namespace GameOfLife.Model
         /// <summary>
         /// Représente la liste de toute les cellule avec le status de toute leur voisine
         /// </summary>
-        private Dictionary<Cellule, Delegate[]> kVCellulesAvecVoisine; 
+        private Dictionary<Cellule, Delegate[]> kVCellulesAvecVoisine;
 
         /// <summary>
         /// Construct un CelluleHelper avec Cellules pleine d'une grille de cellules
@@ -34,9 +34,29 @@ namespace GameOfLife.Model
         /// <param name="coefficientConversion">Le coefficient de conversion de la grille de cellule</param>
         /// <param name="tailGrilleX">Taille de la grille en X</param>
         /// <param name="tailGrilleY">Taille de la grille en Y</param>
-        public CelluleHelper(double coefficientConversion, int tailGrilleX,int tailGrilleY)
+        public CelluleHelper(double coefficientConversion, int tailGrilleX, int tailGrilleY)
         {
             InisialiseGrille(coefficientConversion, tailGrilleX, tailGrilleY);
+            LinkCelluleWitchVoisine();
+        }
+        /// <summary>
+        /// Créer une grille avec les information d'un fichier
+        /// </summary>
+        /// <param name="coefficientConversion">coéficient de convertion du fichier</param>
+        /// <param name="tailGrilleX">Taile de la grille en X</param>
+        /// <param name="tailGrilleY">Taille de la grille en Y</param>
+        public void GrateGameFromFile(double coefficientConversion, int tailGrilleX, int tailGrilleY,bool[] celluleAlive)
+        {
+            for (int i = 0; i < tailGrilleX; i++)
+            {
+                for (int j = 0; j < tailGrilleY; j++)
+                {
+                    Coordonne coordonneCellule = new(coefficientConversion, i, j);
+                    Cellule cellule = new(coordonneCellule,celluleAlive[i*j + j]);
+                    CellulesView.Add(cellule);
+                    cellulesLogique[i, j] = cellule;
+                }
+            }
             LinkCelluleWitchVoisine();
         }
         /// <summary>
