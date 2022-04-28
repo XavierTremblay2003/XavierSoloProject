@@ -14,6 +14,19 @@ namespace GameOfLife.Model
     class CelluleHelper
     {
         /// <summary>
+        /// Nombre de cellule en x de la grille
+        /// </summary>
+        public int NbCelluleX { get; private set; }
+        /// <summary>
+        /// Nombre de cellule en y de la grille
+        /// </summary>
+        public int NbCelluleY { get; private set; }
+        /// <summary>
+        /// Coefficiant de convertion de la grille actuelle
+        /// </summary>
+        public double coefficientConversionAcc { get; private set; }
+
+        /// <summary>
         /// Représente l'ensemble des cellule ordonner pour pouvoir ètre afficher dans une vue
         /// </summary>
         public List<Cellule> CellulesView { get; set; }
@@ -37,6 +50,9 @@ namespace GameOfLife.Model
         public CelluleHelper(double coefficientConversion, int tailGrilleX, int tailGrilleY)
         {
             InisialiseGrille(coefficientConversion, tailGrilleX, tailGrilleY);
+            NbCelluleX = tailGrilleX;
+            NbCelluleY = tailGrilleY;
+            coefficientConversionAcc = coefficientConversion;
             LinkCelluleWitchVoisine();
         }
         /// <summary>
@@ -47,16 +63,23 @@ namespace GameOfLife.Model
         /// <param name="tailGrilleY">Taille de la grille en Y</param>
         public void GrateGameFromFile(double coefficientConversion, int tailGrilleX, int tailGrilleY,bool[] celluleAlive)
         {
+            CellulesView = new(celluleAlive.Length);
+            cellulesLogique = new Cellule[tailGrilleX, tailGrilleY];
+            int k = 0;
             for (int i = 0; i < tailGrilleX; i++)
             {
                 for (int j = 0; j < tailGrilleY; j++)
                 {
                     Coordonne coordonneCellule = new(coefficientConversion, i, j);
-                    Cellule cellule = new(coordonneCellule,celluleAlive[i*j + j]);
+                    Cellule cellule = new(coordonneCellule,celluleAlive[k]);
                     CellulesView.Add(cellule);
                     cellulesLogique[i, j] = cellule;
+                    k++;
                 }
             }
+            NbCelluleX = tailGrilleX;
+            NbCelluleY = tailGrilleY;
+            coefficientConversionAcc = coefficientConversion;
             LinkCelluleWitchVoisine();
         }
         /// <summary>

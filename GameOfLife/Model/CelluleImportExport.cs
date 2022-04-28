@@ -28,9 +28,9 @@ namespace GameOfLife.Model
 
             foreach (Cellule cellule in cellules)
             {
-                gameString += Convert.ToInt32(cellule.IsVivante) + ";";
+                gameString += cellule.IsVivante.ToString() + ";";
             }
-            gameString.Remove(gameString.Length - 1);
+            gameString = gameString.Remove(gameString.Length - 1);
 
             using (StreamWriter sw = new(filePath))
             {
@@ -61,7 +61,7 @@ namespace GameOfLife.Model
                         infoCelluleVivanteBool[i] = Convert.ToBoolean(infoCelluleVivante[i]);
                     }
 
-                    celluleHelperGrille.GrateGameFromFile(Convert.ToDouble(infoGrille[0]), Convert.ToInt32(infoGrille[1]), Convert.ToInt32(infoGrille[2]), infoCelluleVivanteBool);
+                    celluleHelperGrille.GrateGameFromFile(Convert.ToDouble(infoGrille[2]), Convert.ToInt32(infoGrille[0]), Convert.ToInt32(infoGrille[1]), infoCelluleVivanteBool);
                 }
                 else
                 {

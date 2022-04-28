@@ -13,8 +13,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Windows.Storage;
-using Windows.Storage.Pickers;
+using Microsoft.Win32;
+using System.IO;
 
 namespace GameOfLife.ViewModel
 {
@@ -131,7 +131,12 @@ namespace GameOfLife.ViewModel
                     ValeurChanger("NbIterration");
                     DateTime TimeApres = DateTime.Now;
                     long tickDiif = TimeApres.Ticks - TimeAvant.Ticks;
-                    await Task.Delay(TimeSpan.FromTicks((500 * TimeSpan.TicksPerMillisecond)-tickDiif));
+                    TimeSpan timeAttente = (TimeSpan.FromTicks((25 * TimeSpan.TicksPerMillisecond) - tickDiif));
+                    if(timeAttente > TimeSpan.Zero)
+                    {
+                        await Task.Delay(timeAttente);
+                    }
+                    
                 }
             });
             IsGameStart = false;
@@ -159,7 +164,7 @@ namespace GameOfLife.ViewModel
         /// <param name="parameter"></param>
         private void From1Execute(object parameter)
         {
-
+            createNewTable("");
         }
         /// <summary>
         /// Méthode appeler pour voir si l'on peut chanrger la forme 1
@@ -252,14 +257,15 @@ namespace GameOfLife.ViewModel
         /// Méthode executer pour exporter un fichier .gol
         /// </summary>
         /// <param name="parameter"></param>
-        private async void ExportGrilleExecute(object parameter)
+        private void ExportGrilleExecute(object parameter)
         {
-            FileSavePicker fileSave = new();
-            fileSave.DefaultFileExtension = ".gol";
-            fileSave.SuggestedStartLocation = PickerLocationId.ComputerFolder;
-            StorageFile file = await fileSave.PickSaveFileAsync();
-            string filePath = file.Path;
-            celluleImportExport.ExportCellule(celluleHelper.CellulesView, filePath);
+            SaveFileDialog fileSave = new();
+            CreateBaseFile(fileSave);
+            string filePath = fileSave.FileName;
+            if(filePath != string.Empty)
+            {
+                celluleImportExport.ExportCellule(celluleHelper.CellulesView, filePath);
+            }
         }
         /// <summary>
         /// Méthode pour voir si on peut executer la méthode pour avoir un fichier .gol
@@ -274,21 +280,34 @@ namespace GameOfLife.ViewModel
         #endregion
 
         #region Importe Grille
-
+        /// <summary>
+        /// Méthode pour importer une grille avec un filePicker
+        /// </summary>
         public ICommand ImporteGrille { get; set; }
 
         private void ImporteGrilleExecute(object parameter)
         {
+            OpenFileDialog openFileDialog = new();
+            CreateBaseFile(openFileDialog);
+            string filePath = openFileDialog.FileName;
+            if (filePath != string.Empty)
+            {
+                celluleImportExport.ImportCellule(filePath,celluleHelper);
+                double tail = Math.Max(celluleHelper.NbCelluleX * celluleHelper.coefficientConversionAcc, celluleHelper.NbCelluleY * celluleHelper.coefficientConversionAcc);
+                CanvaTailX = (int)tail;
+                CanvaTailY = (int)tail;
 
+                ValeurChanger(nameof(ListeCellues));
+
+            }
         }
 
         private bool ImporteGrilleCanExecute(object parameter)
         {
-            return true;
+            return !IsGameStart;
         }
 
         #endregion
-
 
 
         #endregion
@@ -306,8 +325,8 @@ namespace GameOfLife.ViewModel
             ImporteGrille = new CommandeRelais(ImporteGrilleExecute, ImporteGrilleCanExecute);
 
             // Initialliser les variable du Vm
+            celluleImportExport = new();
             InisializeJeu(nbCelluleX, nbCelluleY);
-            CelluleImportExport celluleImportExport = new();
         }
 
         #region Methode de démarage
@@ -338,6 +357,36 @@ namespace GameOfLife.ViewModel
 
             //Création de la grille
             celluleHelper = new(cooeficiantMultiplicateur, nbCelluleX, nbCelluleY);
+        }
+
+        #endregion
+
+        #region Méthode réutiliser
+        /// <summary>
+        /// génère une nouvelle grille depuis un fichier dasn filePatch
+        /// </summary>
+        /// <param name="filePath">Emplacement du fichier a entrer</param>
+        public void createNewTable(string filePath)
+        {
+            celluleImportExport.ImportCellule(filePath, celluleHelper);
+            double tail = Math.Max(celluleHelper.NbCelluleX * celluleHelper.coefficientConversionAcc, celluleHelper.NbCelluleY * celluleHelper.coefficientConversionAcc);
+            CanvaTailX = (int)tail;
+            CanvaTailY = (int)tail;
+
+            ValeurChanger(nameof(ListeCellues));
+        }
+
+        /// <summary>
+        /// Créer un file dialog avec les information sur les fichier .gol
+        /// </summary>
+        /// <param name="fileDialog">Le file a faire les modification</param>
+        private void CreateBaseFile(FileDialog fileDialog)
+        {
+            fileDialog.Filter = "File ame Of Live (*.gol)|*.gol";
+            fileDialog.AddExtension = true;
+            fileDialog.DefaultExt = ".gol";
+            fileDialog.InitialDirectory = Path.Combine(Environment.CurrentDirectory, "Save");
+            fileDialog.ShowDialog(App.Current.MainWindow);
         }
 
         #endregion

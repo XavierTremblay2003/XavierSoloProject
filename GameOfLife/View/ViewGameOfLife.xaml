@@ -92,7 +92,7 @@
                     </Button>
                     <Label Grid.Row="5">Charger une nouvelle forme :</Label>
                     <!-- Bouton pour le chargement -->
-                    <Button Grid.Row="6">
+                    <Button Command="{Binding ImporteGrille}" Grid.Row="6">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <fa:ImageAwesome Icon="Solid_FileArrowUp" Height="10"></fa:ImageAwesome>
@@ -102,7 +102,7 @@
                     </Button>
                     <Label Grid.Row="7">Enregistrer une nouvelle forme :</Label>
                     <!-- Bouton pour l'enregistrement -->
-                    <Button Grid.Row="8">
+                    <Button Command="{Binding ExportGrille}" Grid.Row="8">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <fa:ImageAwesome Icon="Solid_FloppyDisk" Height="10"></fa:ImageAwesome>
