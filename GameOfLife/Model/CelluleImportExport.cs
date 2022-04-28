@@ -50,7 +50,18 @@ namespace GameOfLife.Model
                 string verif = sr.ReadLine().Trim();
                 if (verif == "<FileGameOfLifeXavier>")
                 {
+                    // Prendre la première ligne qui contient les information sur les cellule
+                    string[] infoGrille = sr.ReadLine().Split(";");
+                    // Prendre la seconde ligne qui contient toute les information sur les cellule si il sont vivante ou morte
+                    string[] infoCelluleVivante = sr.ReadLine().Split(";");
 
+                    bool[] infoCelluleVivanteBool = new bool[infoCelluleVivante.Length];
+                    for (int i = 0; i < infoCelluleVivante.Length; i++)
+                    {
+                        infoCelluleVivanteBool[i] = Convert.ToBoolean(infoCelluleVivante[i]);
+                    }
+
+                    celluleHelperGrille.GrateGameFromFile(Convert.ToDouble(infoGrille[0]), Convert.ToInt32(infoGrille[1]), Convert.ToInt32(infoGrille[2]), infoCelluleVivanteBool);
                 }
                 else
                 {
