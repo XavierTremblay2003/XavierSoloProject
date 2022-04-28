@@ -9,7 +9,7 @@
         xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
         xmlns:vuemodele="clr-namespace:GameOfLife.ViewModel" d:DataContext="{d:DesignInstance Type=vuemodele:ViewModelGameOfLife}"
         mc:Ignorable="d"
-        Title="Jeu de la vie" SizeToContent="WidthAndHeight" ResizeMode="NoResize" >
+        Title="Jeu de la vie" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Window.Resources>
         <!-- Mise en place du style pour avoir tout les bouton avec un cornerRadius -->
         <Style TargetType="Button">

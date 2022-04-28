@@ -13,6 +13,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 
 namespace GameOfLife.ViewModel
 {
@@ -69,6 +71,10 @@ namespace GameOfLife.ViewModel
         /// Représente le nombre d'ithération du jeux
         /// </summary>
         private int nbIterration;
+        /// <summary>
+        /// Représente les interraction avec les fichier pour les grille de cellule
+        /// </summary>
+        private CelluleImportExport celluleImportExport;
 
 
         #endregion
@@ -237,6 +243,52 @@ namespace GameOfLife.ViewModel
 
         #endregion
 
+        #region Export Grille
+        /// <summary>
+        /// commande pour exporter Une grille dasn un fichier .gol 
+        /// </summary>
+        public ICommand ExportGrille { get; set; }
+        /// <summary>
+        /// Méthode executer pour exporter un fichier .gol
+        /// </summary>
+        /// <param name="parameter"></param>
+        private async void ExportGrilleExecute(object parameter)
+        {
+            FileSavePicker fileSave = new();
+            fileSave.DefaultFileExtension = ".gol";
+            fileSave.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+            StorageFile file = await fileSave.PickSaveFileAsync();
+            string filePath = file.Path;
+            celluleImportExport.ExportCellule(celluleHelper.CellulesView, filePath);
+        }
+        /// <summary>
+        /// Méthode pour voir si on peut executer la méthode pour avoir un fichier .gol
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns>true si on peut sinon false</returns>
+        private bool ExportGrilleCanExecute(object parameter)
+        {
+            return !IsGameStart;
+        }
+
+        #endregion
+
+        #region Importe Grille
+
+        public ICommand ImporteGrille { get; set; }
+
+        private void ImporteGrilleExecute(object parameter)
+        {
+
+        }
+
+        private bool ImporteGrilleCanExecute(object parameter)
+        {
+            return true;
+        }
+
+        #endregion
+
 
 
         #endregion
@@ -250,12 +302,12 @@ namespace GameOfLife.ViewModel
             //Initiallisation des ICommand
             StartGame = new CommandeRelais(StartGameAsyncExecute, StartGameCanExecute);
             CreateFormeAlleatoire = new CommandeRelais(CreateFormeAlleatoireExecute, CreateFormAlleatoireCanExecute);
+            ExportGrille = new CommandeRelais(ExportGrilleExecute, ExportGrilleCanExecute);
+            ImporteGrille = new CommandeRelais(ImporteGrilleExecute, ImporteGrilleCanExecute);
 
+            // Initialliser les variable du Vm
             InisializeJeu(nbCelluleX, nbCelluleY);
-
             CelluleImportExport celluleImportExport = new();
-            CreateFormeAlleatoireExecute(this);
-            celluleImportExport.ExportCellule(ListeCellues.ToList(), "test.csv");
         }
 
         #region Methode de démarage

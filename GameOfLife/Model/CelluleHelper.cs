@@ -16,7 +16,7 @@ namespace GameOfLife.Model
         /// <summary>
         /// Représente l'ensemble des cellule ordonner pour pouvoir ètre afficher dans une vue
         /// </summary>
-        public List<Cellule> CellulesView;
+        public List<Cellule> CellulesView { get; set; }
 
         /// <summary>
         /// Représante un tableaux de cellule pour appliquer la logique du jeux de la vie sur lui

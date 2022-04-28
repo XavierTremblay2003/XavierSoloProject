@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="FontAwesome6.Svg" Version="1.1.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="Uno.UI" Version="4.2.6" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CommandRelais">
