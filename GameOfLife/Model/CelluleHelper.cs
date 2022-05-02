@@ -24,7 +24,7 @@ namespace GameOfLife.Model
         /// <summary>
         /// Coefficiant de convertion de la grille actuelle
         /// </summary>
-        public double coefficientConversionAcc { get; private set; }
+        public double CoefficientConversionAcc { get; private set; }
 
         /// <summary>
         /// Représente l'ensemble des cellule ordonner pour pouvoir ètre afficher dans une vue
@@ -52,7 +52,7 @@ namespace GameOfLife.Model
             InisialiseGrille(coefficientConversion, tailGrilleX, tailGrilleY);
             NbCelluleX = tailGrilleX;
             NbCelluleY = tailGrilleY;
-            coefficientConversionAcc = coefficientConversion;
+            CoefficientConversionAcc = coefficientConversion;
             LinkCelluleWitchVoisine();
         }
         /// <summary>
@@ -79,7 +79,7 @@ namespace GameOfLife.Model
             }
             NbCelluleX = tailGrilleX;
             NbCelluleY = tailGrilleY;
-            coefficientConversionAcc = coefficientConversion;
+            CoefficientConversionAcc = coefficientConversion;
             LinkCelluleWitchVoisine();
         }
         /// <summary>

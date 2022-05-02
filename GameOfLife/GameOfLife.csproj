@@ -25,7 +25,12 @@
 		<Copy SourceFiles="Include/CommandRelais.dll" DestinationFolder="$(OutDir)" />
 	</Target>
 	<Target Name="CopyCustomContentOnPublish" AfterTargets="Publish">
-		<Copy SourceFiles="foo.txt" DestinationFolder="$(PublishDir)" />
+		<Copy SourceFiles="Include/CommandRelais.dll" DestinationFolder="$(PublishDir)" />
 	</Target>
 
+	<ItemGroup>
+		<None Include="$(SolutionDir)Save/**" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+	
+	
 </Project>

@@ -85,9 +85,9 @@
 
                     <!-- Bouton pour charger des forme préconfigurer configurer -->
                     <Label Grid.Row="0">Générer une forme :</Label>
-                    <Button Grid.Row="1">Forme 1</Button>
-                    <Button Grid.Row="2">Forme 2</Button>
-                    <Button Grid.Row="3">Forme 3</Button>
+                    <Button Command="{Binding Forme1}" Grid.Row="1">Forme 1</Button>
+                    <Button Command="{Binding Forme2}" Grid.Row="2">Forme 2</Button>
+                    <Button Command="{Binding Forme3}" Grid.Row="3">Forme 3</Button>
                     <Button Command="{Binding CreateFormeAlleatoire}" Grid.Row="4">Aléatoire
                     </Button>
                     <Label Grid.Row="5">Charger une nouvelle forme :</Label>

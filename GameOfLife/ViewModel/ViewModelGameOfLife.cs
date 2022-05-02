@@ -43,7 +43,7 @@ namespace GameOfLife.ViewModel
         /// <summary>
         /// Taille minimum qu'une cellule peut avoir dasn l'afichage
         /// </summary>
-        const int MIN_TAIL_CELLULE = 10;
+        const int MIN_TAIL_CELLULE = 20;
         /// <summary>
         /// Taille minimal du canevas pour l'affichage du jeux
         /// </summary>
@@ -164,7 +164,7 @@ namespace GameOfLife.ViewModel
         /// <param name="parameter"></param>
         private void From1Execute(object parameter)
         {
-            createNewTable("");
+            createNewTable(Path.Combine(Environment.CurrentDirectory, "Save/Forme/Forme1.gol"));
         }
         /// <summary>
         /// Méthode appeler pour voir si l'on peut chanrger la forme 1
@@ -186,7 +186,7 @@ namespace GameOfLife.ViewModel
         /// <param name="parameter"></param>
         private void From2Execute(object parameter)
         {
-
+            createNewTable(Path.Combine(Environment.CurrentDirectory, "Save/Forme/Forme2.gol"));
         }
         /// <summary>
         /// Méthode appeler pour voir si l'on peut chanrger la forme 2
@@ -208,7 +208,7 @@ namespace GameOfLife.ViewModel
         /// <param name="parameter"></param>
         private void From3Execute(object parameter)
         {
-
+            createNewTable(Path.Combine(Environment.CurrentDirectory, "Save/Forme/Forme3.gol"));
         }
         /// <summary>
         /// Méthode appeler pour voir si l'on peut chanrger la forme 3
@@ -293,7 +293,7 @@ namespace GameOfLife.ViewModel
             if (filePath != string.Empty)
             {
                 celluleImportExport.ImportCellule(filePath,celluleHelper);
-                double tail = Math.Max(celluleHelper.NbCelluleX * celluleHelper.coefficientConversionAcc, celluleHelper.NbCelluleY * celluleHelper.coefficientConversionAcc);
+                double tail = Math.Max(celluleHelper.NbCelluleX * celluleHelper.CoefficientConversionAcc, celluleHelper.NbCelluleY * celluleHelper.CoefficientConversionAcc);
                 CanvaTailX = (int)tail;
                 CanvaTailY = (int)tail;
 
@@ -323,6 +323,9 @@ namespace GameOfLife.ViewModel
             CreateFormeAlleatoire = new CommandeRelais(CreateFormeAlleatoireExecute, CreateFormAlleatoireCanExecute);
             ExportGrille = new CommandeRelais(ExportGrilleExecute, ExportGrilleCanExecute);
             ImporteGrille = new CommandeRelais(ImporteGrilleExecute, ImporteGrilleCanExecute);
+            Forme1 = new CommandeRelais(From1Execute, From1CanExecute);
+            Forme2 = new CommandeRelais (From2Execute, From2CanExecute);
+            Forme3 = new CommandeRelais(From3Execute, From3CanExecute);
 
             // Initialliser les variable du Vm
             celluleImportExport = new();
@@ -369,7 +372,7 @@ namespace GameOfLife.ViewModel
         public void createNewTable(string filePath)
         {
             celluleImportExport.ImportCellule(filePath, celluleHelper);
-            double tail = Math.Max(celluleHelper.NbCelluleX * celluleHelper.coefficientConversionAcc, celluleHelper.NbCelluleY * celluleHelper.coefficientConversionAcc);
+            double tail = Math.Max(celluleHelper.NbCelluleX * celluleHelper.CoefficientConversionAcc, celluleHelper.NbCelluleY * celluleHelper.CoefficientConversionAcc);
             CanvaTailX = (int)tail;
             CanvaTailY = (int)tail;
 
