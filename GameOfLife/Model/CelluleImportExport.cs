@@ -63,7 +63,7 @@ namespace GameOfLife.Model
 
                     int tailGrilleX = Convert.ToInt32(infoGrille[0]);
                     int tailGrilleY = Convert.ToInt32(infoGrille[1]);
-                    double coeficiantConvertion = double.Parse("20.21515116813583135");
+                    double coeficiantConvertion = double.Parse(infoGrille[2]);
                     celluleHelperGrille.GrateGameFromFile(coeficiantConvertion,tailGrilleX,tailGrilleY, infoCelluleVivanteBool);
                 }
                 else
