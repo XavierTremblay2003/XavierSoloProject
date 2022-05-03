@@ -164,7 +164,7 @@ namespace GameOfLife.ViewModel
         /// <param name="parameter"></param>
         private void From1Execute(object parameter)
         {
-            createNewTable(Path.Combine(Environment.CurrentDirectory, "Save/Forme/Forme1.gol"));
+            createNewTable(Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".gameoflife/Save/Forme/Forme1.gol")));
         }
         /// <summary>
         /// Méthode appeler pour voir si l'on peut chanrger la forme 1
@@ -186,7 +186,7 @@ namespace GameOfLife.ViewModel
         /// <param name="parameter"></param>
         private void From2Execute(object parameter)
         {
-            createNewTable(Path.Combine(Environment.CurrentDirectory, "Save/Forme/Forme2.gol"));
+            createNewTable(Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".gameoflife/Save/Forme/Forme2.gol")));
         }
         /// <summary>
         /// Méthode appeler pour voir si l'on peut chanrger la forme 2
@@ -208,7 +208,7 @@ namespace GameOfLife.ViewModel
         /// <param name="parameter"></param>
         private void From3Execute(object parameter)
         {
-            createNewTable(Path.Combine(Environment.CurrentDirectory, "Save/Forme/Forme3.gol"));
+            createNewTable(Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".gameoflife/Save/Forme/Forme3.gol")));
         }
         /// <summary>
         /// Méthode appeler pour voir si l'on peut chanrger la forme 3
@@ -388,7 +388,7 @@ namespace GameOfLife.ViewModel
             fileDialog.Filter = "File ame Of Live (*.gol)|*.gol";
             fileDialog.AddExtension = true;
             fileDialog.DefaultExt = ".gol";
-            fileDialog.InitialDirectory = Path.Combine(Environment.CurrentDirectory, "Save");
+            fileDialog.InitialDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".gameoflife\\Save");
             fileDialog.ShowDialog(App.Current.MainWindow);
         }
 

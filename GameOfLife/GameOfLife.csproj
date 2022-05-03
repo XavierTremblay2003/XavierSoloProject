@@ -28,9 +28,7 @@
 		<Copy SourceFiles="Include/CommandRelais.dll" DestinationFolder="$(PublishDir)" />
 	</Target>
 
-	<ItemGroup>
-		<None Include="$(SolutionDir)Save/**" CopyToOutputDirectory="PreserveNewest" />
-	</ItemGroup>
+
 	
 	
 </Project>
