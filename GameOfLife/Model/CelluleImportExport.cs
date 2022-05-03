@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -63,7 +64,10 @@ namespace GameOfLife.Model
 
                     int tailGrilleX = Convert.ToInt32(infoGrille[0]);
                     int tailGrilleY = Convert.ToInt32(infoGrille[1]);
-                    double coeficiantConvertion = double.Parse(infoGrille[2]);
+                    infoGrille[2] = infoGrille[2].Replace(".", ",");
+                    NumberFormatInfo numberFormat = new();
+                    numberFormat.NumberDecimalSeparator = ",";
+                    double coeficiantConvertion = double.Parse(infoGrille[2],numberFormat);
                     celluleHelperGrille.GrateGameFromFile(coeficiantConvertion,tailGrilleX,tailGrilleY, infoCelluleVivanteBool);
                 }
                 else
