@@ -12,16 +12,16 @@ Aller dans les relase du projet : [Lien](https://github.com/kwidz/XavierSoloProj
 
 1. Dans la releases telecharger `Game.of.life.exe`  
 2. Executer le programme  
-![alt text](assets/images/ChoixLang.PNG)  
 3. Choisir la langue dasn le menu déroulant et clicker `ok`  
-![alt text](assets/images/ChoixIntalation.PNG)  
+![alt text](assets/images/ChoixLang.PNG)  
 4. Choisir la destination pour instaler l'application avec le bouton `parcourir...` puis `Suivant`  
-![alt text](assets/images/ChoixIconeMenuDemarer.PNG)  
+![alt text](assets/images/ChoixIntalation.PNG)  
 5. Choisisez si vous voulez un racoursis sur le bureaux avec la case `Créer une icône sur le Bureau` puis `Suivant`  
-![alt text](assets/images/Instalation.PNG)  
+![alt text](assets/images/ChoixIconeMenuDemarer.PNG)  
 6. Click sur le bouon `Installer`  
-![alt text](assets/images/ChoixDemarage.PNG)  
+![alt text](assets/images/Instalation.PNG)  
 7. Cocher la case ` Exécuter Game Of life` si vous voulez lancer le jeux puis `Terminer`  
+![alt text](assets/images/ChoixDemarage.PNG)  
 
 ## Utilisation
 
