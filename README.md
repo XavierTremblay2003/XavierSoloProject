@@ -27,7 +27,7 @@ Aller dans les relase du projet : [Lien](https://github.com/kwidz/XavierSoloProj
 
 ### Lancement
 
- Aux lancement l'application affiche cette fenêtre
+ Aux lancement l'application affiche cette fenêtre  
  ![alt text](assets/images/FenetreDemarage.PNG)
  
  Pour lancer une partir entrer de nombre dans les zone de texte (Conseiller inferrieure a 50) Puis `Commencer`
