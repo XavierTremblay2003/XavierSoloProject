@@ -66,7 +66,7 @@ Pour Modifier l'état de la celule un simple click sufit
  6. Enregistrer en appuillant sur ce bouton un explorateur de fichier s'ouvre et vous pouvez choisire une forme qui seras Enregistrer
       Chargement  
       ![alt text](assets/images/Enrechistrer2.PNG)
-      Forme   
+      Forme    
       ![alt text](assets/images/Enrechistrer.PNG)
 
  7. Demmarer ce bouton permet de commencer des ittération du jeux de la vie avec les cellule morte et vivante
