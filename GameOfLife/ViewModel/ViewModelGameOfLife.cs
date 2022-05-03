@@ -131,7 +131,7 @@ namespace GameOfLife.ViewModel
                     ValeurChanger("NbIterration");
                     DateTime TimeApres = DateTime.Now;
                     long tickDiif = TimeApres.Ticks - TimeAvant.Ticks;
-                    TimeSpan timeAttente = (TimeSpan.FromTicks((25 * TimeSpan.TicksPerMillisecond) - tickDiif));
+                    TimeSpan timeAttente = (TimeSpan.FromTicks((250 * TimeSpan.TicksPerMillisecond) - tickDiif));
                     if(timeAttente > TimeSpan.Zero)
                     {
                         await Task.Delay(timeAttente);
