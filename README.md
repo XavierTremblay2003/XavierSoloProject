@@ -10,24 +10,24 @@ Les tecnique que j'ai apris dans ce projet sont l'utilisation de canevas
 
 Aller dans les relase du projet : [Lien](https://github.com/kwidz/XavierSoloProject/releases/tag/v1.0)
 
-1. Dans la releases telecharger `Game.of.life.exe`
-2. Executer le programme
-![alt text](assets/images/ChoixLang.png)
-3. Choisir la langue dasn le menu déroulant et clicker `ok`
-![alt text](assets/images/ChoixIntalation.png)
-4. Choisir la destination pour instaler l'application avec le bouton `parcourir...` puis `Suivant`
-![alt text](assets/images/ChoixIconeMenuDemarer.png)
-5. Choisisez si vous voulez un racoursis sur le bureaux avec la case `Créer une icône sur le Bureau` puis `Suivant`
-![alt text](assets/images/Instalation.png)
-6. Click sur le bouon `Installer`
-![alt text](assets/images/ChoixDemarage.png)
-7. Cocher la case ` Exécuter Game Of life` si vous voulez lancer le jeux puis `Terminer`
+1. Dans la releases telecharger `Game.of.life.exe`  
+2. Executer le programme  
+![alt text](assets/images/ChoixLang.PNG)  
+3. Choisir la langue dasn le menu déroulant et clicker `ok`  
+![alt text](assets/images/ChoixIntalation.PNG)  
+4. Choisir la destination pour instaler l'application avec le bouton `parcourir...` puis `Suivant`  
+![alt text](assets/images/ChoixIconeMenuDemarer.PNG)  
+5. Choisisez si vous voulez un racoursis sur le bureaux avec la case `Créer une icône sur le Bureau` puis `Suivant`  
+![alt text](assets/images/Instalation.PNG)  
+6. Click sur le bouon `Installer`  
+![alt text](assets/images/ChoixDemarage.PNG)  
+7. Cocher la case ` Exécuter Game Of life` si vous voulez lancer le jeux puis `Terminer`  
 
 ## Utilisation
 
 ### Lancement
 
- Aux lancement l'application affiche cette fenêtre  
+ Aux lancement l'application affiche cette fenêtre   
  ![alt text](assets/images/FenetreDemarage.PNG)
  
  Pour lancer une partir entrer de nombre dans les zone de texte (Conseiller inferrieure a 50) Puis `Commencer`
@@ -36,8 +36,10 @@ Aller dans les relase du projet : [Lien](https://github.com/kwidz/XavierSoloProj
 
  Les cellule ont deux état
  
- - Vivant ![alt text](assets/images/CellVivante.PNG)
- - Morte ![alt text](assets/images/CellMorte.PNG)
+ - Vivant  
+ ![alt text](assets/images/CellVivante.PNG)
+ - Morte  
+ ![alt text](assets/images/CellMorte.PNG)
 
 Pour Modifier l'état de la celule un simple click sufit
 
