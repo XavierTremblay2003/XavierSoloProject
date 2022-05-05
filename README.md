@@ -57,13 +57,14 @@ Pour Modifier l'état de la celule un simple click sufit
  4. Alléatoire en appuillant sur ce bouton une forme alléatorie vas ètre generer
   ![alt text](assets/images/Alleatoire.PNG)
 
- 5. Charger en appuillant sur ce bouton un explorateur de fichier s'ouvre et vous pouvez choisire une forme qui seras charger
-      Chargement 
+ 5. Charger en appuillant sur ce bouton un explorateur de fichier s'ouvre et vous pouvez choisire une forme qui seras charger  
+      Chargement  
       ![alt text](assets/images/Charger2.PNG)
      Forme
       ![alt text](assets/images/Charger.PNG)
 
- 6. Enregistrer en appuillant sur ce bouton un explorateur de fichier s'ouvre et vous pouvez choisire une forme qui seras Enregistrer
+ 6. Enregistrer en appuillant sur ce bouton un explorateur de fichier s'ouvre et vous pouvez choisire une forme qui seras Enregistrer  
+
       Chargement  
       ![alt text](assets/images/Enrechistrer2.PNG)
       Forme    
