@@ -14,23 +14,23 @@ Aller dans les relase du projet : [Lien](https://github.com/kwidz/XavierSoloProj
 2. Executer le programme  
 3. Choisir la langue dasn le menu déroulant et clicker `ok`  
 <br/>
-![alt text](assets/images/ChoixLang.PNG)  
+![alt text](assets/images/ChoixLang.PNG)
 <br/>
 4. Choisir la destination pour instaler l'application avec le bouton `parcourir...` puis `Suivant`  
 <br/>
-![alt text](assets/images/ChoixIntalation.PNG)  
+![alt text](assets/images/ChoixIntalation.PNG)
 <br/>
 5. Choisisez si vous voulez un racoursis sur le bureaux avec la case `Créer une icône sur le Bureau` puis `Suivant`  
 <br/>
-![alt text](assets/images/ChoixIconeMenuDemarer.PNG)  
+![alt text](assets/images/ChoixIconeMenuDemarer.PNG)
 <br/>
 6. Click sur le bouon `Installer`  
 <br/>
-![alt text](assets/images/Instalation.PNG)  
+![alt text](assets/images/Instalation.PNG)
 <br/>
 7. Cocher la case ` Exécuter Game Of life` si vous voulez lancer le jeux puis `Terminer`  
 <br/>
-![alt text](assets/images/ChoixDemarage.PNG)  
+![alt text](assets/images/ChoixDemarage.PNG)
 <br/>
 <br/>
 
@@ -86,7 +86,7 @@ Pour Modifier l'état de la celule un simple click sufit
  <br/>
       Chargement  
       <br/>
-      ![alt text](assets/images/Charger2.PNG)  
+      ![alt text](assets/images/Charger2.PNG)
       <br/>
      Forme  
      <br/>
@@ -96,11 +96,11 @@ Pour Modifier l'état de la celule un simple click sufit
  6. Enregistrer en appuillant sur ce bouton un explorateur de fichier s'ouvre et vous pouvez choisire une forme qui seras Enregistrer  
       Chargement  
       <br/>
-      ![alt text](assets/images/Enrechistrer2.PNG)  
+      ![alt text](assets/images/Enrechistrer2.PNG)
       <br/>
       Forme    
       <br/>
-      ![alt text](assets/images/Enrechistrer.PNG) 
+      ![alt text](assets/images/Enrechistrer.PNG)
       <br/>
 
  7. Demmarer ce bouton permet de commencer des ittération du jeux de la vie avec les cellule morte et vivante  
