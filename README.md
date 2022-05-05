@@ -66,46 +66,67 @@ Pour Modifier l'état de la celule un simple click sufit
  1. Forme 1 en appuillant sur ce bouton la forme suivante apparait
  <br/>
  ![alt text](assets/images/Forme1.PNG)
+
  <br/>
  2. Forme 2 en appuillant sur ce bouton la forme suivante apparait  
+
  <br/>
  ![alt text](assets/images/Forme2.PNG)
+
  <br/>
 
  3. Forme 3 en appuillant sur ce bouton la forme suivante apparait  
+
  <br/>
  ![alt text](assets/images/Forme3.PNG)
+
  <br/>
 
  4. Alléatoire en appuillant sur ce bouton une forme alléatorie vas ètre generer  
+
  <br/>
   ![alt text](assets/images/Alleatoire.PNG)
-  <br/>
+
+ <br/>
 
  5. Charger en appuillant sur ce bouton un explorateur de fichier s'ouvre et vous pouvez choisire une forme qui seras charger  
  <br/>
       Chargement  
       <br/>
+
       ![alt text](assets/images/Charger2.PNG)
+
       <br/>
+
      Forme  
-     <br/>
+
+      <br/>
+
       ![alt text](assets/images/Charger.PNG)
+
       <br/>
 
  6. Enregistrer en appuillant sur ce bouton un explorateur de fichier s'ouvre et vous pouvez choisire une forme qui seras Enregistrer  
       Chargement  
+
       <br/>
+
       ![alt text](assets/images/Enrechistrer2.PNG)
+
       <br/>
+
       Forme    
       <br/>
+
       ![alt text](assets/images/Enrechistrer.PNG)
+
       <br/>
 
  7. Demmarer ce bouton permet de commencer des ittération du jeux de la vie avec les cellule morte et vivante  
  <br/>
+
     ![alt text](assets/images/Iterration.PNG)
+
     <br/>
 
     <br/>
